@@ -6,6 +6,9 @@ import Home from '../views/Home.vue'
 import Instruction from '../views/Instruction.vue'
 import Learn from '../views/Learn.vue'
 import Train from '../views/Train.vue'
+import ToDo from '../views/ToDo.vue'
+import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
 
 const routes = [{
     path: '/',
@@ -34,6 +37,21 @@ const routes = [{
     path: '/train',
     name: 'Train',
     component: Train
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/Register',
+    name: 'Register',
+    component: Register
+  },
+  {
+    path: '/todo',
+    name: 'ToDo',
+    component: ToDo
   },
 
 

@@ -1,50 +1,54 @@
 <template>
-    <div class="bg-home h-screen">
-      <section class="ml-10 grid grid-cols-2 gap-2 lg:grid-cols-3">
-        <nav>
-          <div
-            class="border-solid h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold flex justify-center items-center"
-          >
-            <router-link to="/" class="text-white">DeWroko</router-link>
-          </div>
-        </nav>
-      </section>
-      <section class="flex justify-center items-center h-2/6">
-        <div class="font-extrabold">
-          <div class="text-white border-b-4 text-4xl border-green-500">Welcome to DeWorko</div>
-          <div
-            class="text-white border-b-4 text-4xl border-green-500 pl-10"
-          >your AI personal trainer</div>
-        </div>
-      </section>
-
-      <section>
-        <div class="m-10 grid grid-cols-2 gap-2 lg:grid-cols-3">
-          <div
-            class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
-          > <router-link to="/instruction/learn">Learn</router-link></div>
-          <div></div>
-          <div
-            class="border-solid bg-gray-500 h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
-          >Todo</div>
-          <div
-            class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
-          ><router-link to="/instruction/train">Train</router-link></div>
-          <div></div>
-          <div></div>
-          <div
-            class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
-          >
-          <router-link to="/about">About Us</router-link>
-          </div>
-        </div>
-      </section>
-      <section>
+  <div class="bg-home h-screen">
+    <section class="ml-10 grid grid-cols-2 gap-2 lg:grid-cols-3">
+      <nav>
         <div
-          class="absolute inset-x-0 bottom-0 flex justify-center items-center text-green-600"
-        >@Copyright ~ 2021. By rax</div>
-      </section>
-    </div>
+          class="border-solid h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold flex justify-center items-center"
+        >
+          <router-link to="/" class="text-white">DeWroko</router-link>
+        </div>
+      </nav>
+    </section>
+    <section class="flex justify-center items-center h-2/6">
+      <div class="font-extrabold">
+        <div class="text-white border-b-4 text-4xl border-green-500">Welcome to DeWorko</div>
+        <div class="text-white border-b-4 text-4xl border-green-500 pl-10">your AI personal trainer</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="m-10 grid grid-cols-2 gap-2 lg:grid-cols-3">
+        <div
+          class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
+        >
+          <router-link to="/instruction/learn">Learn</router-link>
+        </div>
+        <div></div>
+        <div
+          class="border-solid bg-gray-500 h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
+        >
+          <router-link to="todo">Todo</router-link>
+        </div>
+        <div
+          class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
+        >
+          <router-link to="/instruction/train">Train</router-link>
+        </div>
+        <div></div>
+        <div></div>
+        <div
+          class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
+        >
+          <router-link to="/about">About Us</router-link>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div
+        class="absolute inset-x-0 bottom-0 flex justify-center items-center text-green-600"
+      >@Copyright ~ 2021. By rax</div>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -59,8 +63,6 @@ export default {
 };
 </script>
 <style>
-
-
 .bg-home {
   background-image: url("../assets/pexels-photo-3112004.png");
   background-repeat: no-repeat;
