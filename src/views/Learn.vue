@@ -13,11 +13,12 @@
 
       <div class="flex justify-between">
         <div
-          class="bg-gray-500 flex-1 rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl" id="canvasDiv"
+          class="bg-gray-500 flex-1 rounded-md font-extrabold text-white flex justify-center items-center text-2xl"
+          id="canvasDiv"
         ></div>
         <div
           class="bg-gray-500 flex-1 rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
-        >Train model</div>
+        >Train model {{finishMove}}</div>
       </div>
 
       <div
@@ -78,6 +79,12 @@ export default {
       let brain;
       // eslint-disable-next-line no-unused-vars
       let poseLabel = "";
+      // eslint-disable-next-line no-unused-vars
+      let poseArray = ["sqaut", "jack"];
+      // eslint-disable-next-line no-unused-vars
+      let workoutMovement = 0;
+      // eslint-disable-next-line no-unused-vars
+      let poseCounter = 0;
 
       // NOTE: Set up is here
       // eslint-disable-next-line no-unused-vars
@@ -96,7 +103,6 @@ export default {
           outputs: 4,
           task: "classification",
           debug: true
-          // dataUrl: "../model/model.json"
         };
         brain = ml5.neuralNetwork(options);
         const modelInfo = {
@@ -105,8 +111,31 @@ export default {
           weights: "../model/model.weights.bin"
         };
         brain.load(modelInfo, brainLoaded);
+
+        setInterval(checkPose, 1000);
+
         // p5.ellipse(p5.width / 2, p5.height / 2, 500, 500);
       };
+
+      function checkPose() {
+        if (poseLabel.toLocaleLowerCase() == poseArray[poseCounter]) {
+          workoutMovement++;
+          // console.log('outer : ', workoutMovement);
+          console.log(workoutMovement);
+          if (workoutMovement >= 5) {
+            console.log("posecounter", poseCounter);
+  
+            // setTimeout(() => {
+              poseCounter++;
+
+              workoutMovement = 0;
+            // }, 1000);
+            console.log("workoutMovement", workoutMovement);
+          }
+        } else if (poseCounter >= poseArray.length) {
+          poseCounter = 0;
+        }
+      }
       function brainLoaded() {
         console.log("pose classification ready!");
         classifyPose();
@@ -153,33 +182,39 @@ export default {
         p5.image(video, 0, 0, video.width, video.height);
 
         if (pose) {
-          for (let i = 0; i < skeleton.length; i++) {
-            let a = skeleton[i][0];
-            let b = skeleton[i][1];
-            p5.strokeWeight(2);
-            p5.stroke(0);
+          // for (let i = 0; i < skeleton.length; i++) {
+          //   let a = skeleton[i][0];
+          //   let b = skeleton[i][1];
+          //   p5.strokeWeight(2);
+          //   p5.stroke(0);
 
-            p5.line(a.position.x, a.position.y, b.position.x, b.position.y);
-          }
-          for (let i = 0; i < pose.keypoints.length; i++) {
-            let x = pose.keypoints[i].position.x;
-            let y = pose.keypoints[i].position.y;
-            p5.fill(0);
-            p5.stroke(255);
-            p5.ellipse(x, y, 16, 16);
-          }
+          //   p5.line(a.position.x, a.position.y, b.position.x, b.position.y);
+          // }
+          // for (let i = 0; i < pose.keypoints.length; i++) {
+          //   let x = pose.keypoints[i].position.x;
+          //   let y = pose.keypoints[i].position.y;
+          //   p5.fill(0);
+          //   p5.stroke(255);
+          //   p5.ellipse(x, y, 16, 16);
+          // }
         }
         p5.pop();
 
-        p5.fill(255, 0, 255);
+        p5.fill(255);
         p5.noStroke();
-        p5.textSize(512);
+        p5.textSize(50);
         // eslint-disable-next-line no-unused-vars
         // eslint-disable-next-line no-undef
         p5.textAlign(p5.CENTER, p5.CENTER);
         // eslint-disable-next-line no-unused-vars
         // eslint-disable-next-line no-undef
         p5.text(poseLabel, p5.width / 2, p5.height / 2);
+
+        if (workoutMovement >= 5) {
+          p5.text("You did it!", 200, 100);
+        } else {
+          p5.text("Keep going!", 200, 100);
+        }
       };
     };
     // NOTE: Use p5 as an instance mode

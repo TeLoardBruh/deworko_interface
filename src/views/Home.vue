@@ -46,7 +46,7 @@
     <section>
       <div
         class="absolute inset-x-0 bottom-0 flex justify-center items-center text-green-600"
-      >@Copyright ~ 2021. By rax</div>
+      >@Copyright ~ 2021. rax</div>
     </section>
   </div>
 </template>
