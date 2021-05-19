@@ -1,28 +1,11 @@
 <template>
-  <div class="grid grid-cols-3 gap-4">
-    <div class="col-span-1 bg-green-500 h-screen">
+  <div class="grid grid-cols-3 gap-4 overflow-hidden">
+    <div class="col-span-1 bg-green-500 h-screen relattive fixed w-80">
       <div
         class="flex h-screen justify-center items-center text-white font-extrabold text-4xl"
       >Train</div>
-    </div>
-
-    <div class="col-span-2">
       <div
-        class="bg-gray-500 flex-1 rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
-      >Song</div>
-
-      <div class="flex justify-between">
-        <div
-          class="bg-gray-500 flex-1 rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
-          id="canvasDiv"
-        ></div>
-        <div
-          class="bg-gray-500 flex-1 rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
-        >Train model</div>
-      </div>
-
-      <div
-        class="flex-1 rounded-md font-extrabold text-green-500 flex justify-start items-center text-3xl"
+        class="flex-1 rounded-md font-extrabold text-white flex justify-start items-center text-3xl absolute inset-x-0 bottom-0"
       >
         <router-link to="/">
           <svg
@@ -44,13 +27,31 @@
       </div>
     </div>
 
+    <div class="col-span-3 ml-80">
+      <div
+        class="bg-gray-500 flex-1 rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
+      >Song</div>
+      <div
+        class="flex-1 rounded-md font-extrabold text-white flex justify-center items-center ml-10 text-2xl"
+        id="moveM"
+      >
+        <div class="bg-gray-500 p-10 mr-10 text-2xl rounded-md">Your movement is {{test}}</div>
+        <div class="bg-gray-500 p-10 text-2xl rounded-md">Your time left 00:{{time}}</div>
+      </div>
+
+      <div class="flex justify-between items-center">
+        <div class id="canvasDiv"></div>
+        <div
+          class="bg-gray-500 rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
+        >Train model</div>
+      </div>
+    </div>
+
     <div
       class="absolute inset-x-0 bottom-0 flex justify-center items-center text-green-600"
     >@Copyright ~ 2021. By rax</div>
   </div>
 </template>
-
-
 <script>
 // eslint-disable-next-line no-unused-vars
 import p5 from "p5";
@@ -59,15 +60,21 @@ import ml5 from "ml5";
 export default {
   data() {
     return {
-      // video: "",
+      test: "sqaut",
+      time: 30
     };
   },
   mounted() {
+    // eslint-disable-next-line no-unused-vars
+    var self = this;
     // console.log(model);
-
+    // console.log(self);
     const script = function(p5) {
+      // console.log("elem");
+      // console.log(self.test);
       // var speed = 2;
       // var posX = 0;
+      // eslint-disable-next-line no-unused-vars
 
       // eslint-disable-next-line no-unused-vars
       var video;
@@ -81,14 +88,28 @@ export default {
       let brain;
       // eslint-disable-next-line no-unused-vars
       let poseLabel = "";
+      // eslint-disable-next-line no-unused-vars
+      let poseArray = ["sqaut", "jack"];
+      // eslint-disable-next-line no-unused-vars
+      let workoutMovement = 0;
+      // eslint-disable-next-line no-unused-vars
+      let timeTracker = 0;
+      // eslint-disable-next-line no-unused-vars
+      let poseCounter = 0;
+      // eslint-disable-next-line no-unused-vars
+      let timer = 30;
 
       // NOTE: Set up is here
       // eslint-disable-next-line no-unused-vars
       p5.setup = setup => {
-        const myCanvas = p5.createCanvas(640, 480);
+        const myCanvas = p5.createCanvas(710, 710);
         // eslint-disable-next-line no-undef
         video = p5.createCapture(p5.VIDEO);
         myCanvas.parent("canvasDiv");
+
+        myCanvas.addClass(
+          "flex-1 rounded-md font-extrabold text-white flex justify-center items-center text-2xl m-10"
+        );
 
         video.hide();
         poseNet = ml5.poseNet(video, modelLoaded);
@@ -99,7 +120,6 @@ export default {
           outputs: 4,
           task: "classification",
           debug: true
-          // dataUrl: "../model/model.json"
         };
         brain = ml5.neuralNetwork(options);
         const modelInfo = {
@@ -108,8 +128,45 @@ export default {
           weights: "../model/model.weights.bin"
         };
         brain.load(modelInfo, brainLoaded);
+
+        setInterval(checkPose, 1000);
+
         // p5.ellipse(p5.width / 2, p5.height / 2, 500, 500);
       };
+      function checkMovement(m) {
+        // console.log(elem);
+        self.test = poseArray[m];
+      }
+      function checkPose() {
+        // self.test = poseArray[0];
+        checkMovement(poseCounter);
+        if (poseLabel.toLocaleLowerCase()) {
+          workoutMovement++;
+          timer--;
+          self.time = timer;
+          // console.log('outer : ', workoutMovement);
+          console.log(workoutMovement);
+
+          if (workoutMovement >= 30) {
+            console.log("posecounter", poseCounter);
+
+            // setTimeout(() => {
+            poseCounter++;
+            timer = 30;
+            self.time = timer;
+            workoutMovement = 0;
+            checkMovement(poseCounter);
+            // console.log(self.test);
+            // }, 1000);
+            console.log("workoutMovement", workoutMovement);
+          }
+        } else if (poseCounter >= poseArray.length) {
+          poseCounter = 0;
+          timer = 30;
+          self.time = timer;
+          checkMovement(poseCounter);
+        }
+      }
       function brainLoaded() {
         console.log("pose classification ready!");
         classifyPose();
@@ -156,33 +213,39 @@ export default {
         p5.image(video, 0, 0, video.width, video.height);
 
         if (pose) {
-          for (let i = 0; i < skeleton.length; i++) {
-            let a = skeleton[i][0];
-            let b = skeleton[i][1];
-            p5.strokeWeight(2);
-            p5.stroke(0);
-
-            p5.line(a.position.x, a.position.y, b.position.x, b.position.y);
-          }
-          for (let i = 0; i < pose.keypoints.length; i++) {
-            let x = pose.keypoints[i].position.x;
-            let y = pose.keypoints[i].position.y;
-            p5.fill(0);
-            p5.stroke(255);
-            p5.ellipse(x, y, 16, 16);
-          }
+          // for (let i = 0; i < skeleton.length; i++) {
+          //   let a = skeleton[i][0];
+          //   let b = skeleton[i][1];
+          //   p5.strokeWeight(2);
+          //   p5.stroke(0);
+          //   p5.line(a.position.x, a.position.y, b.position.x, b.position.y);
+          // }
+          // for (let i = 0; i < pose.keypoints.length; i++) {
+          //   let x = pose.keypoints[i].position.x;
+          //   let y = pose.keypoints[i].position.y;
+          //   p5.fill(0);
+          //   p5.stroke(255);
+          //   p5.ellipse(x, y, 16, 16);
+          // }
         }
         p5.pop();
 
-        p5.fill(255, 0, 255);
+        p5.fill(255);
         p5.noStroke();
-        p5.textSize(512);
+        p5.textSize(50);
         // eslint-disable-next-line no-unused-vars
         // eslint-disable-next-line no-undef
         p5.textAlign(p5.CENTER, p5.CENTER);
         // eslint-disable-next-line no-unused-vars
         // eslint-disable-next-line no-undef
         p5.text(poseLabel, p5.width / 2, p5.height / 2);
+
+        // console.log(poseLabel);
+        // if (workoutMovement >= 5) {
+        //   p5.text("You did it!", 200, 100);
+        // } else {
+        //   p5.text("Keep going!", 200, 100);
+        // }
       };
     };
     // NOTE: Use p5 as an instance mode
