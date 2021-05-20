@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable no-undef */
 <template>
   <div class="grid grid-cols-3 gap-4 overflow-hidden">
     <div class="col-span-1 bg-green-500 h-screen relattive fixed w-80">
@@ -54,7 +56,10 @@
 </template>
 <script>
 // eslint-disable-next-line no-unused-vars
-import p5 from "p5";
+import * as p5 from "p5";
+// // window.p5 = p5
+// import "p5/lib/addons/p5.sound.min";
+import "../p5.sound.js"
 // eslint-disable-next-line no-unused-vars
 import ml5 from "ml5";
 export default {
@@ -96,8 +101,21 @@ export default {
       let poseCounter = 0;
       // eslint-disable-next-line no-unused-vars
       let timer = 5;
+      // eslint-disable-next-line no-unused-vars
+      let gymsound;
+      // eslint-disable-next-line no-unused-vars
+      let fft;
+
+      // preload sound
+      // eslint-disable-next-line no-unused-vars
+      p5.preload = preload => {
+        // fft = p5.FFT();
+        // eslint-disable-next-line no-unused-vars
+        gymsound = p5.loadSound("../sound/gym_sound.mp3");
+      };
 
       // NOTE: Set up is here
+
       // eslint-disable-next-line no-unused-vars
       p5.setup = setup => {
         const myCanvas = p5.createCanvas(710, 710);
@@ -108,6 +126,9 @@ export default {
         myCanvas.addClass(
           "flex-1 rounded-md font-extrabold text-white flex justify-center items-center text-2xl m-10 p-10"
         );
+        // adding gym sound 
+        gymsound.play();
+        gymsound.setVolume(0.1);
 
         video.hide();
         poseNet = ml5.poseNet(video, modelLoaded);
@@ -227,6 +248,7 @@ export default {
           // }
         }
         p5.pop();
+
 
         p5.fill(255);
         p5.noStroke();
