@@ -265,6 +265,7 @@ export default {
       };
     };
     // NOTE: Use p5 as an instance mode
+    // eslint-disable-next-line no-undef
     const P5 = require("p5");
     // console.log(P5);
     new P5(script);
