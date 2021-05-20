@@ -59,15 +59,24 @@
 import * as p5 from "p5";
 // // window.p5 = p5
 // import "p5/lib/addons/p5.sound.min";
-import "../p5.sound.js"
+import "../p5.sound.js";
 // eslint-disable-next-line no-unused-vars
 import ml5 from "ml5";
 export default {
   data() {
     return {
-      test: "sqaut",
+      test: "start",
       time: 5
     };
+  },
+  created() {
+    // eslint-disable-next-line no-unused-vars
+    // let reload = false;
+    // setTimeout(() => {
+    //   reload = true;
+    //   window.location.reload(reload);
+    // }, 5000);
+    // window.location.reload(false);
   },
   mounted() {
     // eslint-disable-next-line no-unused-vars
@@ -94,7 +103,7 @@ export default {
       // eslint-disable-next-line no-unused-vars
       let poseLabel = "";
       // eslint-disable-next-line no-unused-vars
-      let poseArray = ["sqaut", "jack"];
+      let poseArray = ["start","sqaut", "jack"];
       // eslint-disable-next-line no-unused-vars
       let workoutMovement = 0;
       // eslint-disable-next-line no-unused-vars
@@ -126,9 +135,9 @@ export default {
         myCanvas.addClass(
           "flex-1 rounded-md font-extrabold text-white flex justify-center items-center text-2xl m-10 p-10"
         );
-        // adding gym sound 
+        // adding gym sound
         gymsound.play();
-        gymsound.setVolume(0.1);
+        // gymsound.setVolume(0.1);
 
         video.hide();
         poseNet = ml5.poseNet(video, modelLoaded);
@@ -142,9 +151,9 @@ export default {
         };
         brain = ml5.neuralNetwork(options);
         const modelInfo = {
-          model: "../model/model.json",
-          metadata: "../model/model_meta.json",
-          weights: "../model/model.weights.bin"
+          model: "../model/v10/model.json",
+          metadata: "../model/v10/model_meta.json",
+          weights: "../model/v10/model.weights.bin"
         };
         brain.load(modelInfo, brainLoaded);
 
@@ -232,13 +241,13 @@ export default {
         p5.image(video, 0, 0, video.width, video.height);
 
         if (pose) {
-          // for (let i = 0; i < skeleton.length; i++) {
-          //   let a = skeleton[i][0];
-          //   let b = skeleton[i][1];
-          //   p5.strokeWeight(2);
-          //   p5.stroke(0);
-          //   p5.line(a.position.x, a.position.y, b.position.x, b.position.y);
-          // }
+          for (let i = 0; i < skeleton.length; i++) {
+            let a = skeleton[i][0];
+            let b = skeleton[i][1];
+            p5.strokeWeight(10);
+            p5.stroke(85, 224, 16);
+            p5.line(a.position.x, a.position.y, b.position.x, b.position.y);
+          }
           // for (let i = 0; i < pose.keypoints.length; i++) {
           //   let x = pose.keypoints[i].position.x;
           //   let y = pose.keypoints[i].position.y;
@@ -248,7 +257,6 @@ export default {
           // }
         }
         p5.pop();
-
 
         p5.fill(255);
         p5.noStroke();

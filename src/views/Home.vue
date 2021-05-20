@@ -18,29 +18,29 @@
 
     <section>
       <div class="m-10 grid grid-cols-2 gap-2 lg:grid-cols-3">
-        <div
-          class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
-        >
-          <router-link to="/instruction/learn">Learn</router-link>
-        </div>
+        <router-link to="/instruction/learn">
+          <div
+            class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
+          >learn</div>
+        </router-link>
         <div></div>
-        <div
-          class="border-solid bg-gray-500 h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
-        >
-          <router-link to="todo">Todo</router-link>
-        </div>
-        <div
-          class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
-        >
-          <router-link to="/instruction/train">Train</router-link>
-        </div>
+        <router-link to="todo">
+          <div
+            class="border-solid bg-gray-500 h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
+          >Todo</div>
+        </router-link>
+        <router-link to="/instruction/train">
+          <div
+            class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
+          >Train</div>
+        </router-link>
         <div></div>
         <div></div>
-        <div
-          class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
-        >
-          <router-link to="/about">About Us</router-link>
-        </div>
+        <router-link to="/about">
+          <div
+            class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
+          >About Us</div>
+        </router-link>
       </div>
     </section>
     <section>

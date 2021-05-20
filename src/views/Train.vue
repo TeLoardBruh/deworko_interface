@@ -94,7 +94,7 @@ export default {
       // eslint-disable-next-line no-unused-vars
       let poseLabel = "";
       // eslint-disable-next-line no-unused-vars
-      let poseArray = ["sqaut", "jack"];
+      let poseArray = ["start","sqaut", "jack"];
       // eslint-disable-next-line no-unused-vars
       let workoutMovement = 0;
       // eslint-disable-next-line no-unused-vars
@@ -139,9 +139,9 @@ export default {
         };
         brain = ml5.neuralNetwork(options);
         const modelInfo = {
-          model: "../model/model.json",
-          metadata: "../model/model_meta.json",
-          weights: "../model/model.weights.bin"
+          model: "../model/v10/model.json",
+          metadata: "../model/v10/model_meta.json",
+          weights: "../model/v10/model.weights.bin"
         };
         brain.load(modelInfo, brainLoaded);
 
@@ -229,13 +229,13 @@ export default {
         p5.image(video, 0, 0, video.width, video.height);
 
         if (pose) {
-          // for (let i = 0; i < skeleton.length; i++) {
-          //   let a = skeleton[i][0];
-          //   let b = skeleton[i][1];
-          //   p5.strokeWeight(2);
-          //   p5.stroke(0);
-          //   p5.line(a.position.x, a.position.y, b.position.x, b.position.y);
-          // }
+          for (let i = 0; i < skeleton.length; i++) {
+            let a = skeleton[i][0];
+            let b = skeleton[i][1];
+            p5.strokeWeight(10);
+            p5.stroke(85, 224, 16);
+            p5.line(a.position.x, a.position.y, b.position.x, b.position.y);
+          }
           // for (let i = 0; i < pose.keypoints.length; i++) {
           //   let x = pose.keypoints[i].position.x;
           //   let y = pose.keypoints[i].position.y;
