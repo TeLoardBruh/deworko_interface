@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 <template>
   <div class="grid grid-cols-3 gap-4 overflow-hidden">
     <div class="col-span-1 bg-green-500 h-screen relattive fixed w-80">
@@ -54,7 +55,11 @@
 </template>
 <script>
 // eslint-disable-next-line no-unused-vars
-import p5 from "p5";
+// eslint-disable-next-line no-unused-vars
+import * as p5 from "p5";
+// // window.p5 = p5
+// import "p5/lib/addons/p5.sound.min";
+import "../p5.sound.js";
 // eslint-disable-next-line no-unused-vars
 import ml5 from "ml5";
 export default {
@@ -96,9 +101,16 @@ export default {
       let timeTracker = 0;
       // eslint-disable-next-line no-unused-vars
       let poseCounter = 0;
-      // eslint-disable-next-line no-unused-vars
       let timer = 30;
-
+      // eslint-disable-next-line no-unused-vars
+      let gymsound;
+      // preload sound
+      // eslint-disable-next-line no-unused-vars
+      p5.preload = preload => {
+        // fft = p5.FFT();
+        // eslint-disable-next-line no-unused-vars
+        gymsound = p5.loadSound("../sound/gym_sound.mp3");
+      };
       // NOTE: Set up is here
       // eslint-disable-next-line no-unused-vars
       p5.setup = setup => {
@@ -110,6 +122,10 @@ export default {
         myCanvas.addClass(
           "flex-1 rounded-md font-extrabold text-white flex justify-center items-center text-2xl m-10"
         );
+
+        // add gym sound effect
+        gymsound.play();
+        gymsound.setVolume(0.1);
 
         video.hide();
         poseNet = ml5.poseNet(video, modelLoaded);
