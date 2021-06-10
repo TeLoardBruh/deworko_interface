@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-undef */
 <template>
-  <div class="grid grid-cols-3 gap-4 overflow-hidden">
+  <div class="grid grid-cols-3 gap-4 overflow-hidden relative">
     <div class="col-span-1 bg-green-500 h-screen relattive fixed w-80">
       <div
         class="flex h-screen justify-center items-center text-white font-extrabold text-4xl"
@@ -30,22 +30,24 @@
     </div>
 
     <div class="col-span-3 ml-80">
-      <div
+      <!-- <div
         class="bg-gray-500 flex-1 rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
-      >Song</div>
+      >Song</div>-->
       <div
-        class="flex-1 rounded-md font-extrabold text-white flex justify-center items-center ml-10 text-2xl"
+        class="flex-1 rounded-md font-extrabold text-white flex justify-center items-center ml-10 mt-10 text-2xl"
         id="moveM"
       >
         <div class="bg-gray-500 p-10 mr-10 text-2xl rounded-md">Your movement is {{test}}</div>
-        <div class="bg-gray-500 p-10 text-2xl rounded-md">{{test}} : {{time}}</div>
+        <div class="bg-gray-500 p-10 text-2xl rounded-md">Movement count : {{test}} : {{time}}</div>
       </div>
 
       <div class="flex justify-between items-center">
         <div class id="canvasDiv"></div>
-        <div
-          class="bg-gray-500 rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
-        >Train model</div>
+        <div class="rounded-md font-extrabold text-white flex-wrap justify-center items-center">
+          <div class="bg-gray-500 m-10 p-10 text-2xl">Your stand position : {{position}}</div>
+          <div class="bg-gray-500 m-10 p-10 text-2xl">Your angle : {{position}}</div>
+          <div class="bg-gray-500 m-10 p-10 text-2xl">Your feedback angle : {{position}}</div>
+        </div>
       </div>
     </div>
 
@@ -66,7 +68,8 @@ export default {
   data() {
     return {
       test: "start",
-      time: 5
+      time: 5,
+      position: "Front"
     };
   },
   created() {
@@ -103,7 +106,7 @@ export default {
       // eslint-disable-next-line no-unused-vars
       let poseLabel = "";
       // eslint-disable-next-line no-unused-vars
-      let poseArray = ["start","sqaut", "jack"];
+      let poseArray = ["start", "sqaut", "jack"];
       // eslint-disable-next-line no-unused-vars
       let workoutMovement = 0;
       // eslint-disable-next-line no-unused-vars
@@ -114,6 +117,11 @@ export default {
       let gymsound;
       // eslint-disable-next-line no-unused-vars
       let fft;
+      let rightHipX = 0;
+      let rightHipY = 0;
+      let rightKneeX = 0;
+      let rightKneeY = 0;
+      let d_prev = 0;
 
       // preload sound
       // eslint-disable-next-line no-unused-vars
@@ -130,6 +138,7 @@ export default {
         const myCanvas = p5.createCanvas(710, 710);
         // eslint-disable-next-line no-undef
         video = p5.createCapture(p5.VIDEO);
+        video.size(p5.width, p5.height);
         myCanvas.parent("canvasDiv");
 
         myCanvas.addClass(
@@ -157,44 +166,52 @@ export default {
         };
         brain.load(modelInfo, brainLoaded);
 
-        setInterval(checkPose, 1000);
+        // setInterval(checkPose, 1000);
 
         // p5.ellipse(p5.width / 2, p5.height / 2, 500, 500);
       };
-      function checkMovement(m) {
-        // console.log(elem);
-        self.test = poseArray[m];
-      }
-      function checkPose() {
-        // self.test = poseArray[0];
-        checkMovement(poseCounter);
-        if (poseLabel.toLocaleLowerCase() == poseArray[poseCounter]) {
-          workoutMovement++;
-          // console.log('outer : ', workoutMovement);
-          console.log(workoutMovement);
-          timer--;
-          self.time = timer;
+      // function checkMovement(m) {
+      //   // console.log(elem);
+      //   self.test = poseArray[m];
+      // }
+      // function checkPose() {
+      //   // self.test = poseArray[0];
+      //   checkMovement(poseCounter);
+      //   if (poseLabel.toLocaleLowerCase() == poseArray[poseCounter]) {
+      //     let d = p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY);
+      //     console.log(d);
+      //     p5.ellipse(rightHipX, rightHipY, d);
+      //     if (d < 100 && d_prev >= 100) {
+      //       workoutMovement++;
 
-          if (workoutMovement >= 5) {
-            console.log("posecounter", poseCounter);
+      //       // mySound.play();
+      //     }
+      //     // workoutMovement++;
+      //     // console.log('outer : ', workoutMovement);
+      //     console.log(workoutMovement);
+      //     timer--;
+      //     self.time = timer;
 
-            // setTimeout(() => {
-            poseCounter++;
-            timer = 5;
-            self.time = timer;
-            workoutMovement = 0;
-            checkMovement(poseCounter);
-            // console.log(self.test);
-            // }, 1000);
-            console.log("workoutMovement", workoutMovement);
-          }
-        } else if (poseCounter >= poseArray.length) {
-          poseCounter = 0;
-          timer = 5;
-          self.time = timer;
-          checkMovement(poseCounter);
-        }
-      }
+      //     if (workoutMovement >= 5) {
+      //       console.log("posecounter", poseCounter);
+
+      //       // setTimeout(() => {
+      //       poseCounter++;
+      //       timer = 5;
+      //       self.time = timer;
+      //       workoutMovement = 0;
+      //       checkMovement(poseCounter);
+      //       // console.log(self.test);
+      //       // }, 1000);
+      //       console.log("workoutMovement", workoutMovement);
+      //     }
+      //   } else if (poseCounter >= poseArray.length) {
+      //     poseCounter = 0;
+      //     timer = 5;
+      //     self.time = timer;
+      //     checkMovement(poseCounter);
+      //   }
+      // }
       function brainLoaded() {
         console.log("pose classification ready!");
         classifyPose();
@@ -210,7 +227,7 @@ export default {
           }
           brain.classify(inputs, gotResult);
         } else {
-          setTimeout(classifyPose, 100);
+          setTimeout(classifyPose, 5000);
         }
       }
       function gotResult(error, results) {
@@ -224,20 +241,36 @@ export default {
       function gotPoses(poses) {
         if (poses.length > 0) {
           pose = poses[0].pose;
+          rightHipX = pose.keypoints[12].position.x;
+          rightHipY = pose.keypoints[12].position.y;
+          rightKneeX = pose.keypoints[14].position.x;
+          rightKneeY = pose.keypoints[14].position.y;
           skeleton = poses[0].skeleton;
         }
       }
       function modelLoaded() {
         console.log("poseNet ready");
       }
-      // eslint-disable-next-line no-unused-vars
 
+      // this the function that use to calculate the pose and ++
+      // eslint-disable-next-line no-unused-vars
+      function calPose() {
+        let d = p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY);
+        console.log(d);
+        p5.ellipse(rightHipX, rightHipY, d);
+        if (d < 100 && d_prev >= 100) {
+          workoutMovement++;
+          console.log("workoutMovement", workoutMovement);
+          // mySound.play();
+        }
+        d = d_prev;
+      }
       // NOTE: Draw is here
       // eslint-disable-next-line no-unused-vars
       p5.draw = draw => {
         p5.push();
-        p5.translate(video.width, 0);
-        p5.scale(-1, 1);
+        // p5.translate(video.width, 0);
+        // p5.scale(-1, 1);
         p5.image(video, 0, 0, video.width, video.height);
 
         if (pose) {
@@ -256,11 +289,13 @@ export default {
           //   p5.ellipse(x, y, 16, 16);
           // }
         }
+
         p5.pop();
 
         p5.fill(255);
         p5.noStroke();
         p5.textSize(50);
+
         // eslint-disable-next-line no-unused-vars
         // eslint-disable-next-line no-undef
         p5.textAlign(p5.CENTER, p5.CENTER);
@@ -268,12 +303,17 @@ export default {
         // eslint-disable-next-line no-undef
         p5.text(poseLabel, p5.width / 2, p5.height / 2);
 
+        // test code
+
+        
+        calPose();
         // console.log(poseLabel);
         if (workoutMovement >= 5) {
           p5.text("You did it!", 200, 100);
         } else {
           p5.text("Keep going!", 200, 100);
         }
+        
       };
     };
     // NOTE: Use p5 as an instance mode

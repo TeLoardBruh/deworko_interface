@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 <template>
-  <div class="grid grid-cols-3 gap-4 overflow-hidden">
+  <div class="grid grid-cols-3 gap-4 overflow-hidden relative">
     <div class="col-span-1 bg-green-500 h-screen relattive fixed w-80">
       <div
         class="flex h-screen justify-center items-center text-white font-extrabold text-4xl"
@@ -29,11 +29,11 @@
     </div>
 
     <div class="col-span-3 ml-80">
-      <div
+      <!-- <div
         class="bg-gray-500 flex-1 rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
-      >Song</div>
+      >Song</div>-->
       <div
-        class="flex-1 rounded-md font-extrabold text-white flex justify-center items-center ml-10 text-2xl"
+        class="flex-1 rounded-md font-extrabold text-white flex justify-center items-center ml-10 mt-10 text-2xl"
         id="moveM"
       >
         <div class="bg-gray-500 p-10 mr-10 text-2xl rounded-md">Your movement is {{test}}</div>
@@ -94,14 +94,80 @@ export default {
       // eslint-disable-next-line no-unused-vars
       let poseLabel = "";
       // eslint-disable-next-line no-unused-vars
-      let poseArray = ["start","sqaut", "jack"];
-      // eslint-disable-next-line no-unused-vars
+      // arrays of workouts movement
+      let poseArray = [
+        "sqaut",
+        "jack",
+        "single_leg_stand_r",
+        "single_leg_stand_l",
+        "high_knees",
+        "jumping_lunge_r",
+        "jumping_lunge_l",
+        "lateral_shuffles"
+      ];
+      let postArrayDisplay = [
+        "Sqaut",
+        "Jumping Jacks",
+        "Single leg stand (right leg)",
+        "Single leg stand (left leg)",
+        "High knees",
+        "Lunge (right side)",
+        "Lunge (left side)",
+        "Lateral shuffles",
+      ]
       let workoutMovement = 0;
-      // eslint-disable-next-line no-unused-vars
-      let timeTracker = 0;
-      // eslint-disable-next-line no-unused-vars
       let poseCounter = 0;
-      let timer = 30;
+      // body postiions
+      // right
+      // eslint-disable-next-line no-unused-vars
+      let rightHipX = 0;
+      // eslint-disable-next-line no-unused-vars
+      let rightHipY = 0;
+      // eslint-disable-next-line no-unused-vars
+      let rightKneeX = 0;
+      // eslint-disable-next-line no-unused-vars
+      let rightKneeY = 0;
+      // eslint-disable-next-line no-unused-vars
+      let rightUnderKneeX = 0;
+      // eslint-disable-next-line no-unused-vars
+      let rightUnderKneeY = 0;
+
+      // left
+      // eslint-disable-next-line no-unused-vars
+      let leftHipX = 0;
+      // eslint-disable-next-line no-unused-vars
+      let leftHipY = 0;
+      // eslint-disable-next-line no-unused-vars
+      let leftKneeX = 0;
+      // eslint-disable-next-line no-unused-vars
+      let leftKneeY = 0;
+      // eslint-disable-next-line no-unused-vars
+      let leftUnderKneeX = 0;
+      // eslint-disable-next-line no-unused-vars
+      let leftUnderKneeY = 0;
+      // eslint-disable-next-line no-unused-vars
+      let rightShoulderX = 0;
+      // eslint-disable-next-line no-unused-vars
+      let rightShoulderY = 0;
+
+      // timer
+      let timer = 5;
+      // eslint-disable-next-line no-unused-vars
+      let sec = 0;
+      // eslint-disable-next-line no-unused-vars
+      let counter = 0;
+      // eslint-disable-next-line no-unused-vars
+      let d_prev = 0;
+      // eslint-disable-next-line no-unused-vars
+      let pCount = 0 ;
+      // eslint-disable-next-line no-unused-vars
+      let count = 0;
+      // eslint-disable-next-line no-unused-vars
+      let state;
+      // eslint-disable-next-line no-unused-vars
+      let sumAve = 0;
+      // eslint-disable-next-line no-unused-vars
+      let moveArr = [];
       // eslint-disable-next-line no-unused-vars
       let gymsound;
       // preload sound
@@ -117,6 +183,7 @@ export default {
         const myCanvas = p5.createCanvas(710, 710);
         // eslint-disable-next-line no-undef
         video = p5.createCapture(p5.VIDEO);
+        video.size(p5.width, p5.height);
         myCanvas.parent("canvasDiv");
 
         myCanvas.addClass(
@@ -145,14 +212,15 @@ export default {
         };
         brain.load(modelInfo, brainLoaded);
 
-        setInterval(checkPose, 1000);
+        // setInterval(checkPose, 1000);
 
         // p5.ellipse(p5.width / 2, p5.height / 2, 500, 500);
       };
       function checkMovement(m) {
         // console.log(elem);
-        self.test = poseArray[m];
+        self.test = postArrayDisplay[m];
       }
+      // eslint-disable-next-line no-unused-vars
       function checkPose() {
         // self.test = poseArray[0];
         checkMovement(poseCounter);
@@ -208,10 +276,362 @@ export default {
         //console.log(results[0].confidence);
         classifyPose();
       }
+      // new version of logic workout
+      function calPose() {
+        // let v0 = createVector(rightShoulderX, rightShoulderY);
 
+        // let v1 = createVector(rightHipX, rightHipY);
+        // let angleBetween = v0.angleBetween(v1);
+        // console.log(d);
+        checkMovement(pCount)
+        if (poseArray[pCount] == "sqaut") {
+          let d = parseInt(
+            p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
+          );
+          // console.log("in here");
+          if (d < 95) {
+            p5.stroke(0, 255, 0);
+          } else {
+            p5.stroke(255, 0, 0);
+          }
+          p5.ellipse(rightHipX, rightHipY, d);
+          // ellipse(rightShoulderX, rightShoulderY, 30);
+          // text(angleBetween, rightShoulderX, rightShoulderY);
+          p5.textSize(50);
+          p5.text(d, rightHipX, rightHipY);
+          // if a squat is detected (when someone sits down, and up), increase the counter by 1
+          if (d < 95 && d_prev >= 100) {
+            count++;
+            moveArr.push(d);
+            console.log(count);
+            // console.log("d_prev" + d_prev);
+
+            // mySound.play();
+          }
+
+          // if the counter reaches at 5, display "You did it" otherwise "keep going!"
+          p5.textSize(50);
+          p5.fill(255);
+          if (count >= 5) {
+            // text("You did it!", 100, 100);
+            count = 0;
+            pCount++;
+            // ave();
+
+            console.log("suc");
+          } else {
+            // text("Keep going!", 100, 100)
+          }
+          d_prev = d;
+
+          // console.log(counter);
+          // console.log(d);
+        } else if (poseArray[pCount] == "jack") {
+          console.log("in jack");
+          let d = parseInt(
+            p5.dist(rightHipX, rightHipY, rightShoulderX, rightShoulderY)
+          );
+          if (d < 100) {
+            p5.stroke(0, 255, 0);
+          } else {
+            p5.stroke(255, 0, 0);
+          }
+          p5.ellipse(rightHipX, rightHipY, d);
+
+          p5.textSize(50);
+          p5.text(d, rightHipX, rightHipY);
+          // if a squat is detected (when someone sits down, and up), increase the counter by 1
+          if (d < 100 && d_prev >= 100) {
+            count++;
+            console.log(count);
+            // console.log("d_prev" + d_prev);
+
+            // mySound.play();
+          }
+          // if the counter reaches at 5, display "You did it" otherwise "keep going!"
+          p5.textSize(50);
+          p5.fill(255);
+          if (count >= 10) {
+            count = 0;
+            // text("You did it!", 100, 100);
+            pCount++;
+            console.log("suc");
+          } else {
+            // text("Keep going!", 100, 100)
+          }
+          d_prev = d;
+          // console.log(counter);
+          // console.log(d);
+        } else if (poseArray[pCount] == "single_leg_stand_r") {
+          let d = parseInt(
+            p5.dist(
+              rightUnderKneeX,
+              rightUnderKneeY,
+              leftUnderKneeX,
+              leftUnderKneeY
+            )
+          );
+          if (d < 50) {
+            p5.stroke(0, 255, 0);
+          } else {
+            p5.stroke(255, 0, 0);
+          }
+          p5.ellipse(rightHipX, rightHipY, d);
+
+          p5.textSize(50);
+          p5.text(d, rightHipX, rightHipY);
+          // if a squat is detected (when someone sits down, and up), increase the counter by 1
+          // eslint-disable-next-line no-undef
+          if (d < 10 && p5.frameCount % 60 == 0) {
+            sec++;
+            p5.text("leg down", 100, 100);
+            console.log(sec);
+            if (sec >= 5) {
+              count++;
+              console.log("in counter : " + count);
+              sec = 0;
+              p5.text("leg down", 100, 100);
+            }
+
+            // console.log("d_prev" + d_prev);
+
+            // mySound.play();
+          }
+          // if the counter reaches at 5, display "You did it" otherwise "keep going!"
+          p5.textSize(50);
+          p5.fill(255);
+          if (count >= 5) {
+            // text("You did it!", 100, 100);
+            count = 0;
+            pCount++;
+            console.log("suc");
+          } else {
+            // text("Keep going!", 100, 100)
+          }
+          d_prev = d;
+          // console.log(counter);
+          // console.log(d);
+        } else if (poseArray[pCount] == "single_leg_stand_l") {
+          let d = parseInt(
+            p5.dist(
+              rightUnderKneeX,
+              rightUnderKneeY,
+              leftUnderKneeX,
+              leftUnderKneeY
+            )
+          );
+          if (d < 50) {
+            p5.stroke(0, 255, 0);
+          } else {
+            p5.stroke(255, 0, 0);
+          }
+          p5.ellipse(rightHipX, rightHipY, d);
+
+          p5.textSize(50);
+          p5.text(d, rightHipX, rightHipY);
+          // if a squat is detected (when someone sits down, and up), increase the counter by 1
+          // eslint-disable-next-line no-undef
+          if (d < 10 && p5.frameCount % 60 == 0) {
+            sec++;
+            p5.text("leg down", 100, 100);
+            console.log(sec);
+            if (sec >= 5) {
+              count++;
+              console.log("in counter : " + count);
+              sec = 0;
+              p5.text("leg down", 100, 100);
+            }
+
+            // console.log("d_prev" + d_prev);
+
+            // mySound.play();
+          }
+          // if the counter reaches at 5, display "You did it" otherwise "keep going!"
+          p5.textSize(50);
+          p5.fill(255);
+          if (count >= 5) {
+            // text("You did it!", 100, 100);
+            count = 0;
+            pCount++;
+            console.log("suc");
+          } else {
+            // text("Keep going!", 100, 100)
+          }
+          d_prev = d;
+          // console.log(counter);
+          // console.log(d);
+        } else if (poseArray[pCount] == "high_knees") {
+          let d = parseInt(
+            p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
+          );
+          if (d < 80) {
+            p5.stroke(0, 255, 0);
+          } else {
+            p5.stroke(255, 0, 0);
+          }
+          p5.ellipse(rightHipX, rightHipY, d);
+
+          p5.textSize(50);
+          p5.text(d, rightHipX, rightHipY);
+          // if a squat is detected (when someone sits down, and up), increase the counter by 1
+          if (d < 80 && d_prev >= 100) {
+            count++;
+            console.log(count);
+            // console.log("d_prev" + d_prev);
+
+            // mySound.play();
+          }
+          // if the counter reaches at 5, display "You did it" otherwise "keep going!"
+          p5.textSize(50);
+          p5.fill(255);
+          if (count >= 5) {
+            // text("You did it!", 100, 100);
+            count = 0;
+            pCount++;
+            console.log("suc");
+          } else {
+            // text("Keep going!", 100, 100)
+          }
+          d_prev = d;
+          // console.log(counter);
+          // console.log(d);
+        } else if (poseArray[pCount] == "jumping_lunge_r") {
+          let d = parseInt(
+            p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
+          );
+
+          if (d < 80) {
+            p5.stroke(0, 255, 0);
+          } else {
+            p5.stroke(255, 0, 0);
+          }
+          p5.ellipse(rightHipX, rightHipY, d);
+
+          p5.textSize(50);
+          p5.text(d, rightHipX, rightHipY);
+          // if a squat is detected (when someone sits down, and up), increase the counter by 1
+          if (d < 100 && d_prev >= 110) {
+            count++;
+            console.log(count);
+            // console.log("d_prev" + d_prev);
+
+            // mySound.play();
+          }
+          // if the counter reaches at 5, display "You did it" otherwise "keep going!"
+          p5.textSize(50);
+          p5.fill(255);
+          if (count >= 5) {
+            // text("You did it!", 100, 100);
+            count = 0;
+            pCount++;
+            console.log("suc");
+          } else {
+            // text("Keep going!", 100, 100)
+          }
+          d_prev = d;
+          // console.log(counter);
+          // console.log(d);
+        } else if (poseArray[pCount] == "jumping_lunge_l") {
+          // let d = parseInt(dist(leftHipX, leftHipY, leftKneeX, leftKneeY));
+          let d = parseInt(
+            p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
+          );
+
+          if (d < 100) {
+            p5.stroke(0, 255, 0);
+          } else {
+            p5.stroke(255, 0, 0);
+          }
+          p5.ellipse(rightHipX, rightHipY, d);
+
+          p5.textSize(50);
+          p5.text(d, rightHipX, rightHipY);
+          // if a squat is detected (when someone sits down, and up), increase the counter by 1
+          if (d < 100 && d_prev >= 110) {
+            count++;
+
+            console.log("after 5 : " + count);
+
+            // console.log("d_prev" + d_prev);
+
+            // mySound.play();
+          }
+          // if the counter reaches at 5, display "You did it" otherwise "keep going!"
+          p5.textSize(50);
+          p5.fill(255);
+          if (count >= 5) {
+            // text("You did it!", 100, 100);
+            count = 0;
+            pCount++;
+            console.log("suc");
+          } else {
+            // text("Keep going!", 100, 100)
+          }
+          d_prev = d;
+          // console.log(counter);
+          // console.log(d);
+        } else if (poseArray[pCount] == "lateral_shuffles") {
+          let d = parseInt(
+            p5.dist(rightKneeX, rightKneeY, leftKneeX, leftKneeY)
+          );
+
+          if (d < 80) {
+            p5.stroke(0, 255, 0);
+          } else {
+            p5.stroke(255, 0, 0);
+          }
+          p5.ellipse(rightHipX, rightHipY, d);
+
+          p5.textSize(50);
+          p5.text(d, rightHipX, rightHipY);
+          // if a squat is detected (when someone sits down, and up), increase the counter by 1
+          if (d < 100 && d_prev >= 100) {
+            count++;
+            console.log(count);
+            // console.log("d_prev" + d_prev);
+
+            // mySound.play();
+          }
+          // if the counter reaches at 5, display "You did it" otherwise "keep going!"
+          p5.textSize(50);
+          p5.fill(255);
+          if (count >= 5) {
+            // text("You did it!", 100, 100);
+            count = 0;
+            pCount++;
+            console.log("suc");
+          } else {
+            // text("Keep going!", 100, 100)
+          }
+          d_prev = d;
+          // console.log(counter);
+          // console.log(d);
+        } else {
+          p5.noLoop();
+        }
+        // else if(poseArray)
+      }
       function gotPoses(poses) {
         if (poses.length > 0) {
           pose = poses[0].pose;
+
+          // right pose
+          rightShoulderX = poses[0].pose.keypoints[8].position.x;
+          rightShoulderY = poses[0].pose.keypoints[8].position.y;
+          rightHipX = poses[0].pose.keypoints[12].position.x;
+          rightHipY = poses[0].pose.keypoints[12].position.y;
+          rightKneeX = poses[0].pose.keypoints[14].position.x;
+          rightKneeY = poses[0].pose.keypoints[14].position.y;
+          // left pose
+          leftHipX = poses[0].pose.keypoints[11].position.x;
+          leftHipY = poses[0].pose.keypoints[11].position.y;
+          leftKneeX = poses[0].pose.keypoints[13].position.x;
+          leftKneeY = poses[0].pose.keypoints[13].position.y;
+          rightUnderKneeX = poses[0].pose.keypoints[16].position.x;
+          rightUnderKneeY = poses[0].pose.keypoints[16].position.y;
+          leftUnderKneeX = poses[0].pose.keypoints[15].position.x;
+          leftUnderKneeY = poses[0].pose.keypoints[15].position.y;
+
           skeleton = poses[0].skeleton;
         }
       }
@@ -255,6 +675,10 @@ export default {
         // eslint-disable-next-line no-unused-vars
         // eslint-disable-next-line no-undef
         p5.text(poseLabel, p5.width / 2, p5.height / 2);
+        // new code
+        calPose();
+
+        // ===================================
 
         // console.log(poseLabel);
         // if (workoutMovement >= 5) {
