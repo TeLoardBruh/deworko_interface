@@ -42,12 +42,18 @@
 
       <div class="flex justify-between items-center">
         <div class id="canvasDiv"></div>
-        <div
+        <!-- <div
           class="bg-gray-500 rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
-        >Train model</div>
+        >Train model</div>-->
+        <div>
+          <img :src="postImage.img1" />
+        </div>
+        <div>
+          <img :src="postImage.img2" />
+        </div>
+        
       </div>
     </div>
-
     <div
       class="absolute inset-x-0 bottom-0 flex justify-center items-center text-green-600"
     >@Copyright ~ 2021. By rax</div>
@@ -66,7 +72,8 @@ export default {
   data() {
     return {
       test: "sqaut",
-      time: 30
+      time: 30,
+      postImage: []
     };
   },
   mounted() {
@@ -113,8 +120,44 @@ export default {
         "High knees",
         "Lunge (right side)",
         "Lunge (left side)",
-        "Lateral shuffles",
-      ]
+        "Lateral shuffles"
+      ];
+      let postImage = {
+        0: {
+          img1: "../assets/img/sqN.png",
+          img2: "/assets/img/sqW.png"
+        },
+        1: {
+          img1: "../assets/img/jaN.png",
+          img2: "../assets/img/jaW.png"
+        },
+        2: {
+          img1: "../assets/img/jaN.png",
+          img2: "../assets/img/stR.png"
+        },
+        3: {
+          img1: "../assets/img/jaN.png",
+          img2: "../assets/img/stL.png"
+        },
+        4: {
+          img1: "../assets/img/hiR.png",
+          img2: "../assets/img/hiL.png"
+        },
+        5: {
+          img1: "../assets/img/lN.png",
+          img2: "../assets/img/lr.png"
+        },
+        6: {
+          img1: "../assets/img/lN.png",
+          img2: "../assets/img/ll.png"
+        },
+        7: {
+          img1: "../assets/img/LateN.png",
+          img2: "../assets/img/LateW.png"
+        }
+      };
+      // self.postImage = postImage;
+
       let workoutMovement = 0;
       let poseCounter = 0;
       // body postiions
@@ -159,7 +202,7 @@ export default {
       // eslint-disable-next-line no-unused-vars
       let d_prev = 0;
       // eslint-disable-next-line no-unused-vars
-      let pCount = 0 ;
+      let pCount = 0;
       // eslint-disable-next-line no-unused-vars
       let count = 0;
       // eslint-disable-next-line no-unused-vars
@@ -219,6 +262,8 @@ export default {
       function checkMovement(m) {
         // console.log(elem);
         self.test = postArrayDisplay[m];
+        // self.postImage = postImage[m];
+        self.postImage = postImage[m];
       }
       // eslint-disable-next-line no-unused-vars
       function checkPose() {
@@ -283,7 +328,7 @@ export default {
         // let v1 = createVector(rightHipX, rightHipY);
         // let angleBetween = v0.angleBetween(v1);
         // console.log(d);
-        checkMovement(pCount)
+        checkMovement(pCount);
         if (poseArray[pCount] == "sqaut") {
           let d = parseInt(
             p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
