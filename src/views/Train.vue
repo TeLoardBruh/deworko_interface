@@ -51,7 +51,6 @@
         <div>
           <img :src="postImage.img2" />
         </div>
-        
       </div>
     </div>
     <div
@@ -241,19 +240,6 @@ export default {
         poseNet = ml5.poseNet(video, modelLoaded);
         poseNet.on("pose", gotPoses);
         // eslint-disable-next-line no-unused-vars
-        let options = {
-          inputs: 34,
-          outputs: 4,
-          task: "classification",
-          debug: true
-        };
-        brain = ml5.neuralNetwork(options);
-        const modelInfo = {
-          model: "../model/v10/model.json",
-          metadata: "../model/v10/model_meta.json",
-          weights: "../model/v10/model.weights.bin"
-        };
-        brain.load(modelInfo, brainLoaded);
 
         // setInterval(checkPose, 1000);
 
@@ -296,10 +282,7 @@ export default {
           checkMovement(poseCounter);
         }
       }
-      function brainLoaded() {
-        console.log("pose classification ready!");
-        classifyPose();
-      }
+
       function classifyPose() {
         if (pose) {
           let inputs = [];
