@@ -21,7 +21,7 @@
         <router-link to="/instruction/learn">
           <div
             class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
-          >learn</div>
+          >Learn</div>
         </router-link>
         <div></div>
         <router-link to="todo">

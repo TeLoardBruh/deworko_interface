@@ -2,9 +2,11 @@
 <template>
   <div class="grid grid-cols-3 gap-4 overflow-hidden relative">
     <div class="col-span-1 bg-green-500 h-screen relattive fixed w-80">
-      <div
-        class="flex h-screen justify-center items-center text-white font-extrabold text-4xl"
-      >Learn</div>
+      <div class="flex h-screen justify-center items-center text-white font-extrabold text-4xl">
+        <div class="flex flex-col justify-center items-center">
+          <div class>Learn</div>
+        </div>
+      </div>
       <div
         class="flex-1 rounded-md font-extrabold text-white flex justify-start items-center text-3xl absolute inset-x-0 bottom-0"
       >
@@ -27,7 +29,63 @@
         <router-link to="/">Back</router-link>
       </div>
     </div>
+    <div :class="learningProc+' '+modalClass" style="background: rgba(0,0,0,.2);" id="modal-id">
+      <div class="w-full max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg bg-white">
+        <!--content-->
+        <div class>
+          <!--body-->
+          <div class="text-center p-5 flex-auto justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-4 h-4 -m-1 flex items-center text-blue-500 mx-auto"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
 
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-16 h-16 flex items-center text-green-500 mx-auto"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+              />
+            </svg>
+            <h2 class="text-xl font-bold py-4">Hello ! Lets get you in shape in no time</h2>
+            <p class="text-sm text-gray-500 px-8">
+              Do you to move to training activities ?
+              This process will include each move in 30 seconds interval
+            </p>
+          </div>
+          <!--footer-->
+          <div class="p-3 mt-2 text-center space-x-4 md:block">
+            <router-link to="/learn">
+              <button
+                class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"
+              >No</button>
+            </router-link>
+            <router-link to="/train">
+              <button
+                class="mb-2 md:mb-0 bg-green-500 border border-green-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600"
+              >Yes</button>
+            </router-link>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="col-span-3 ml-80">
       <!-- <div
         class="bg-gray-500 flex-1 rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
@@ -45,6 +103,11 @@
         <!-- <div
           class="bg-gray-500 rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
         >Train model</div>-->
+        <div class="mt-10 bg-gray-500 p-10 text-2xl rounded-md text-white font-extrabold mr-2">
+          How to do {{test}} :
+          <br />
+          {{postImage.instruction}}
+        </div>
         <div>
           <img :src="postImage.img1" />
         </div>
@@ -70,9 +133,12 @@ import ml5 from "ml5";
 export default {
   data() {
     return {
-      test: "sqaut",
+      test: "Sqaut",
       time: 5,
-      postImage: []
+      postImage: [],
+      learningProc: "hidden",
+      modalClass:
+        "min-w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none"
     };
   },
   mounted() {
@@ -124,35 +190,51 @@ export default {
       let postImage = {
         0: {
           img1: "../assets/img/sqN.png",
-          img2: "/assets/img/sqW.png"
+          img2: "/assets/img/sqW.png",
+          instruction:
+            "Stand with feet just wider than hip-width apart and bend your hips down"
         },
         1: {
           img1: "../assets/img/jaN.png",
-          img2: "../assets/img/jaW.png"
+          img2: "../assets/img/jaW.png",
+          instruction:
+            "Stand with your feet together, and, your arms at your side in one jumping motion move your feet out to your sides."
         },
         2: {
           img1: "../assets/img/jaN.png",
-          img2: "../assets/img/stR.png"
+          img2: "../assets/img/stR.png",
+          instruction:
+            "Lift your right leg off the floor and bend it back at the knee"
         },
         3: {
           img1: "../assets/img/jaN.png",
-          img2: "../assets/img/stL.png"
+          img2: "../assets/img/stL.png",
+          instruction:
+            "Lift your left leg off the floor and bend it back at the knee"
         },
         4: {
           img1: "../assets/img/hiR.png",
-          img2: "../assets/img/hiL.png"
+          img2: "../assets/img/hiL.png",
+          instruction:
+            "Normal stands, then bend your Knees up higher than hips positions."
         },
         5: {
           img1: "../assets/img/lN.png",
-          img2: "../assets/img/lr.png"
+          img2: "../assets/img/lr.png",
+          instruction:
+            "Normal stands (turn your right side around 45 degree facing the camera), then start to put your right foot forward and bend into 90 degree angle."
         },
         6: {
           img1: "../assets/img/lN.png",
-          img2: "../assets/img/ll.png"
+          img2: "../assets/img/ll.png",
+          instruction:
+            "Normal stands (turn your left side around 45 degree facing the camera), then start to put your left foot forward and bend into 90 degree angle"
         },
         7: {
           img1: "../assets/img/LateN.png",
-          img2: "../assets/img/LateW.png"
+          img2: "../assets/img/LateW.png",
+          instruction:
+            "Put your self in sqaut positions then move left and right"
         }
       };
       // self.postImage = postImage;
@@ -201,7 +283,7 @@ export default {
       // eslint-disable-next-line no-unused-vars
       let d_prev = 0;
       // eslint-disable-next-line no-unused-vars
-      let pCount = 0;
+      let pCount = 1;
       // eslint-disable-next-line no-unused-vars
       let count = 0;
       // eslint-disable-next-line no-unused-vars
@@ -212,6 +294,7 @@ export default {
       let moveArr = [];
       // eslint-disable-next-line no-unused-vars
       let gymsound;
+      let doneLearn;
       // preload sound
       // eslint-disable-next-line no-unused-vars
       p5.preload = preload => {
@@ -227,7 +310,7 @@ export default {
         video = p5.createCapture(p5.VIDEO);
         video.size(p5.width, p5.height);
         myCanvas.parent("canvasDiv");
-
+        // p5.frameRate(1);
         myCanvas.addClass(
           "flex-1 rounded-md font-extrabold text-white flex justify-center items-center text-2xl m-10"
         );
@@ -240,7 +323,6 @@ export default {
         poseNet = ml5.poseNet(video, modelLoaded);
         poseNet.on("pose", gotPoses);
         // eslint-disable-next-line no-unused-vars
-
 
         // setInterval(checkPose, 1000);
 
@@ -361,11 +443,15 @@ export default {
           // console.log(counter);
           // console.log(d);
         } else if (poseArray[pCount] == "jack") {
-          console.log("in jack");
           let d = parseInt(
-            p5.dist(rightHipX, rightHipY, rightShoulderX, rightShoulderY)
+            p5.dist(
+              rightUnderKneeX,
+              rightUnderKneeY,
+              leftUnderKneeX,
+              leftUnderKneeY
+            )
           );
-          if (d < 100) {
+          if (d >= 100) {
             p5.stroke(0, 255, 0);
           } else {
             p5.stroke(255, 0, 0);
@@ -375,7 +461,7 @@ export default {
           p5.textSize(50);
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
-          if (d < 100 && d_prev >= 100) {
+          if (d >= 100 && p5.frameCount % 60 == 0) {
             timer--;
             self.time = timer;
             count++;
@@ -409,7 +495,7 @@ export default {
               leftUnderKneeY
             )
           );
-          if (d < 50) {
+          if (d < 20) {
             p5.stroke(0, 255, 0);
           } else {
             p5.stroke(255, 0, 0);
@@ -420,7 +506,7 @@ export default {
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           // eslint-disable-next-line no-undef
-          if (d < 10 && p5.frameCount % 60 == 0) {
+          if (d < 20 && p5.frameCount % 60 == 0) {
             sec++;
             p5.text("leg down", 100, 100);
             console.log(sec);
@@ -462,7 +548,7 @@ export default {
               leftUnderKneeY
             )
           );
-          if (d < 50) {
+          if (d < 20) {
             p5.stroke(0, 255, 0);
           } else {
             p5.stroke(255, 0, 0);
@@ -473,7 +559,7 @@ export default {
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           // eslint-disable-next-line no-undef
-          if (d < 10 && p5.frameCount % 60 == 0) {
+          if (d < 20 && p5.frameCount % 60 == 0) {
             sec++;
             p5.text("leg down", 100, 100);
             console.log(sec);
@@ -546,11 +632,9 @@ export default {
           // console.log(counter);
           // console.log(d);
         } else if (poseArray[pCount] == "jumping_lunge_r") {
-          let d = parseInt(
-            p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
-          );
+          let d = parseInt(p5.dist(leftHipX, leftHipY, leftKneeX, leftKneeY));
 
-          if (d < 80) {
+          if (d < 100) {
             p5.stroke(0, 255, 0);
           } else {
             p5.stroke(255, 0, 0);
@@ -560,11 +644,13 @@ export default {
           p5.textSize(50);
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
-          if (d < 100 && d_prev >= 110) {
+          if (d < 100 && p5.frameCount % 60 == 0) {
             count++;
+
             timer--;
             self.time = timer;
             console.log(count);
+
             // console.log("d_prev" + d_prev);
 
             // mySound.play();
@@ -601,7 +687,7 @@ export default {
           p5.textSize(50);
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
-          if (d < 100 && d_prev >= 110) {
+          if (d < 100 && p5.frameCount % 60 == 0) {
             count++;
             timer--;
             self.time = timer;
@@ -667,9 +753,17 @@ export default {
           d_prev = d;
           // console.log(counter);
           // console.log(d);
-        } else {
-          p5.noLoop();
+        } else if (pCount >= poseArray.length) {
+          pCount = 0;
+          doneLearn = "";
+          self.learningProc = doneLearn;
+          // p5.noLoop();
+          // console.log(self.doneLearn);
         }
+        // else {
+        //   console.log('else');
+        //   p5.noLoop();
+        // }
         // else if(poseArray)
       }
       function gotPoses(poses) {
