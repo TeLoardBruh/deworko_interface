@@ -283,7 +283,7 @@ export default {
       // eslint-disable-next-line no-unused-vars
       let d_prev = 0;
       // eslint-disable-next-line no-unused-vars
-      let pCount = 1;
+      let pCount = 0;
       // eslint-disable-next-line no-unused-vars
       let count = 0;
       // eslint-disable-next-line no-unused-vars
@@ -714,7 +714,13 @@ export default {
           // console.log(counter);
           // console.log(d);
         } else if (poseArray[pCount] == "lateral_shuffles") {
+          // let d = parseInt(
+          //   p5.dist(rightKneeX, rightKneeY, leftKneeX, leftKneeY)
+          // );
           let d = parseInt(
+            p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
+          );
+          let dl = parseInt(
             p5.dist(rightKneeX, rightKneeY, leftKneeX, leftKneeY)
           );
 
@@ -728,8 +734,8 @@ export default {
           p5.textSize(50);
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
-          if (d < 100 && d_prev >= 100) {
-            count++;
+          if (d < 150 && dl < 100 && p5.frameCount % 60 == 0) {
+            // count++;
             timer--;
             self.time = timer;
             console.log(count);
@@ -737,6 +743,7 @@ export default {
 
             // mySound.play();
           }
+          p5.text(dl, rightUnderKneeX, rightUnderKneeY);
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
