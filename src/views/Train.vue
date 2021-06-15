@@ -27,6 +27,63 @@
         <router-link to="/">Back</router-link>
       </div>
     </div>
+    <div :class="learningProc+' '+modalClass" style="background: rgba(0,0,0,.2);" id="modal-id">
+      <div class="w-full max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg bg-white">
+        <!--content-->
+        <div class>
+          <!--body-->
+          <div class="text-center p-5 flex-auto justify-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-4 h-4 -m-1 flex items-center text-blue-500 mx-auto"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="w-16 h-16 flex items-center text-green-500 mx-auto"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
+              />
+            </svg>
+            <h2 class="text-xl font-bold py-4">Hello ! Lets get you in shape in no time</h2>
+            <p class="text-sm text-gray-500 px-8">
+              Do you to move to training activities ?
+              This process will include each move in 30 seconds interval
+            </p>
+          </div>
+          <!--footer-->
+          <div class="p-3 mt-2 text-center space-x-4 md:block">
+            <router-link to="/learn">
+              <button
+                class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"
+              >No</button>
+            </router-link>
+            <router-link to="/train">
+              <button
+                class="mb-2 md:mb-0 bg-green-500 border border-green-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600"
+              >Yes</button>
+            </router-link>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="col-span-3 ml-80">
       <!-- <div
@@ -72,7 +129,10 @@ export default {
     return {
       test: "sqaut",
       time: 30,
-      postImage: []
+      postImage: [],
+      learningProc: "hidden",
+      modalClass:
+        "min-w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none"
     };
   },
   mounted() {
@@ -193,7 +253,7 @@ export default {
       let rightShoulderY = 0;
 
       // timer
-      let timer = 5;
+      let timer = 10;
       // eslint-disable-next-line no-unused-vars
       let sec = 0;
       // eslint-disable-next-line no-unused-vars
@@ -212,6 +272,10 @@ export default {
       let moveArr = [];
       // eslint-disable-next-line no-unused-vars
       let gymsound;
+      let doneLearn;
+
+      // workout array
+      let workoutArr = [];
       // preload sound
       // eslint-disable-next-line no-unused-vars
       p5.preload = preload => {
@@ -307,10 +371,21 @@ export default {
       // new version of logic workout
       function calPose() {
         // let v0 = createVector(rightShoulderX, rightShoulderY);
-
         // let v1 = createVector(rightHipX, rightHipY);
         // let angleBetween = v0.angleBetween(v1);
         // console.log(d);
+
+        if (p5.frameCount % 60 == 0) {
+          timer--;
+          self.time = timer;
+        }
+        if (timer <= 0) {
+          workoutArr[poseArray[pCount]] = count;
+          console.log(workoutArr);
+          timer = 10;
+          count = 0;
+          pCount++;
+        }
         checkMovement(pCount);
         if (poseArray[pCount] == "sqaut") {
           let d = parseInt(
@@ -332,34 +407,26 @@ export default {
             count++;
             moveArr.push(d);
             console.log(count);
-            // console.log("d_prev" + d_prev);
-
-            // mySound.play();
           }
 
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
-          if (count >= 5) {
-            // text("You did it!", 100, 100);
-            count = 0;
-            pCount++;
-            // ave();
 
-            console.log("suc");
-          } else {
-            // text("Keep going!", 100, 100)
-          }
           d_prev = d;
 
           // console.log(counter);
           // console.log(d);
         } else if (poseArray[pCount] == "jack") {
-          console.log("in jack");
           let d = parseInt(
-            p5.dist(rightHipX, rightHipY, rightShoulderX, rightShoulderY)
+            p5.dist(
+              rightUnderKneeX,
+              rightUnderKneeY,
+              leftUnderKneeX,
+              leftUnderKneeY
+            )
           );
-          if (d < 100) {
+          if (d >= 100) {
             p5.stroke(0, 255, 0);
           } else {
             p5.stroke(255, 0, 0);
@@ -369,27 +436,15 @@ export default {
           p5.textSize(50);
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
-          if (d < 100 && d_prev >= 100) {
+          if (d >= 100 && p5.frameCount % 60 == 0) {
             count++;
             console.log(count);
-            // console.log("d_prev" + d_prev);
-
-            // mySound.play();
           }
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
-          if (count >= 10) {
-            count = 0;
-            // text("You did it!", 100, 100);
-            pCount++;
-            console.log("suc");
-          } else {
-            // text("Keep going!", 100, 100)
-          }
+
           d_prev = d;
-          // console.log(counter);
-          // console.log(d);
         } else if (poseArray[pCount] == "single_leg_stand_r") {
           let d = parseInt(
             p5.dist(
@@ -399,7 +454,7 @@ export default {
               leftUnderKneeY
             )
           );
-          if (d < 50) {
+          if (d < 20) {
             p5.stroke(0, 255, 0);
           } else {
             p5.stroke(255, 0, 0);
@@ -410,7 +465,7 @@ export default {
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           // eslint-disable-next-line no-undef
-          if (d < 10 && p5.frameCount % 60 == 0) {
+          if (d < 20 && p5.frameCount % 60 == 0) {
             sec++;
             p5.text("leg down", 100, 100);
             console.log(sec);
@@ -420,25 +475,12 @@ export default {
               sec = 0;
               p5.text("leg down", 100, 100);
             }
-
-            // console.log("d_prev" + d_prev);
-
-            // mySound.play();
           }
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
-          if (count >= 5) {
-            // text("You did it!", 100, 100);
-            count = 0;
-            pCount++;
-            console.log("suc");
-          } else {
-            // text("Keep going!", 100, 100)
-          }
+
           d_prev = d;
-          // console.log(counter);
-          // console.log(d);
         } else if (poseArray[pCount] == "single_leg_stand_l") {
           let d = parseInt(
             p5.dist(
@@ -448,7 +490,7 @@ export default {
               leftUnderKneeY
             )
           );
-          if (d < 50) {
+          if (d < 20) {
             p5.stroke(0, 255, 0);
           } else {
             p5.stroke(255, 0, 0);
@@ -459,35 +501,23 @@ export default {
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           // eslint-disable-next-line no-undef
-          if (d < 10 && p5.frameCount % 60 == 0) {
+          if (d < 20 && p5.frameCount % 60 == 0) {
             sec++;
             p5.text("leg down", 100, 100);
             console.log(sec);
             if (sec >= 5) {
               count++;
               console.log("in counter : " + count);
+
               sec = 0;
               p5.text("leg down", 100, 100);
             }
-
-            // console.log("d_prev" + d_prev);
-
-            // mySound.play();
           }
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
-          if (count >= 5) {
-            // text("You did it!", 100, 100);
-            count = 0;
-            pCount++;
-            console.log("suc");
-          } else {
-            // text("Keep going!", 100, 100)
-          }
+
           d_prev = d;
-          // console.log(counter);
-          // console.log(d);
         } else if (poseArray[pCount] == "high_knees") {
           let d = parseInt(
             p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
@@ -504,6 +534,7 @@ export default {
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d < 80 && d_prev >= 100) {
             count++;
+
             console.log(count);
             // console.log("d_prev" + d_prev);
 
@@ -512,23 +543,12 @@ export default {
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
-          if (count >= 5) {
-            // text("You did it!", 100, 100);
-            count = 0;
-            pCount++;
-            console.log("suc");
-          } else {
-            // text("Keep going!", 100, 100)
-          }
-          d_prev = d;
-          // console.log(counter);
-          // console.log(d);
-        } else if (poseArray[pCount] == "jumping_lunge_r") {
-          let d = parseInt(
-            p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
-          );
 
-          if (d < 80) {
+          d_prev = d;
+        } else if (poseArray[pCount] == "jumping_lunge_r") {
+          let d = parseInt(p5.dist(leftHipX, leftHipY, leftKneeX, leftKneeY));
+
+          if (d < 100) {
             p5.stroke(0, 255, 0);
           } else {
             p5.stroke(255, 0, 0);
@@ -538,9 +558,10 @@ export default {
           p5.textSize(50);
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
-          if (d < 100 && d_prev >= 110) {
+          if (d < 100 && p5.frameCount % 60 == 0) {
             count++;
             console.log(count);
+
             // console.log("d_prev" + d_prev);
 
             // mySound.play();
@@ -548,19 +569,9 @@ export default {
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
-          if (count >= 5) {
-            // text("You did it!", 100, 100);
-            count = 0;
-            pCount++;
-            console.log("suc");
-          } else {
-            // text("Keep going!", 100, 100)
-          }
+
           d_prev = d;
-          // console.log(counter);
-          // console.log(d);
         } else if (poseArray[pCount] == "jumping_lunge_l") {
-          // let d = parseInt(dist(leftHipX, leftHipY, leftKneeX, leftKneeY));
           let d = parseInt(
             p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
           );
@@ -575,31 +586,19 @@ export default {
           p5.textSize(50);
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
-          if (d < 100 && d_prev >= 110) {
+          if (d < 100 && p5.frameCount % 60 == 0) {
             count++;
-
             console.log("after 5 : " + count);
-
-            // console.log("d_prev" + d_prev);
-
-            // mySound.play();
           }
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
-          if (count >= 5) {
-            // text("You did it!", 100, 100);
-            count = 0;
-            pCount++;
-            console.log("suc");
-          } else {
-            // text("Keep going!", 100, 100)
-          }
           d_prev = d;
-          // console.log(counter);
-          // console.log(d);
         } else if (poseArray[pCount] == "lateral_shuffles") {
           let d = parseInt(
+            p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
+          );
+          let dl = parseInt(
             p5.dist(rightKneeX, rightKneeY, leftKneeX, leftKneeY)
           );
 
@@ -613,31 +612,21 @@ export default {
           p5.textSize(50);
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
-          if (d < 100 && d_prev >= 100) {
+          if (d < 150 && dl < 100 && p5.frameCount % 60 == 0) {
             count++;
-            console.log(count);
-            // console.log("d_prev" + d_prev);
 
-            // mySound.play();
+            console.log(count);
           }
+          p5.text(dl, rightUnderKneeX, rightUnderKneeY);
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
-          if (count >= 5) {
-            // text("You did it!", 100, 100);
-            count = 0;
-            pCount++;
-            console.log("suc");
-          } else {
-            // text("Keep going!", 100, 100)
-          }
           d_prev = d;
-          // console.log(counter);
-          // console.log(d);
-        } else {
-          p5.noLoop();
+        } else if (pCount >= poseArray.length) {
+          pCount = 0;
+          doneLearn = "";
+          self.learningProc = doneLearn;
         }
-        // else if(poseArray)
       }
       function gotPoses(poses) {
         if (poses.length > 0) {
@@ -707,13 +696,6 @@ export default {
         calPose();
 
         // ===================================
-
-        // console.log(poseLabel);
-        // if (workoutMovement >= 5) {
-        //   p5.text("You did it!", 200, 100);
-        // } else {
-        //   p5.text("Keep going!", 200, 100);
-        // }
       };
     };
     // NOTE: Use p5 as an instance mode
