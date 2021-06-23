@@ -4,7 +4,9 @@
     <div class="col-span-1 bg-green-500 h-screen relattive fixed w-80">
       <div
         class="flex h-screen justify-center items-center text-white font-extrabold text-4xl"
-      >Train</div>
+      >
+        Train
+      </div>
       <div
         class="flex-1 rounded-md font-extrabold text-white flex justify-start items-center text-3xl absolute inset-x-0 bottom-0"
       >
@@ -27,8 +29,14 @@
         <router-link to="/">Back</router-link>
       </div>
     </div>
-    <div :class="learningProc+' '+modalClass" style="background: rgba(0,0,0,.2);" id="modal-id">
-      <div class="w-full max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg bg-white">
+    <div
+      :class="learningProc + ' ' + modalClass"
+      style="background: rgba(0,0,0,.2);"
+      id="modal-id"
+    >
+      <div
+        class="w-full max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg bg-white"
+      >
         <!--content-->
         <div class>
           <!--body-->
@@ -62,10 +70,12 @@
                 d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
               />
             </svg>
-            <h2 class="text-xl font-bold py-4">Hello ! Lets get you in shape in no time</h2>
+            <h2 class="text-xl font-bold py-4">
+              Hello ! Lets get you in shape in no time
+            </h2>
             <p class="text-sm text-gray-500 px-8">
-              Do you to move to training activities ?
-              This process will include each move in 30 seconds interval
+              Do you to move to training activities ? This process will include
+              each move in 30 seconds interval
             </p>
           </div>
           <!--footer-->
@@ -73,12 +83,16 @@
             <router-link to="/learn">
               <button
                 class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"
-              >No</button>
+              >
+                No
+              </button>
             </router-link>
             <router-link to="/train">
               <button
                 class="mb-2 md:mb-0 bg-green-500 border border-green-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600"
-              >Yes</button>
+              >
+                Yes
+              </button>
             </router-link>
           </div>
         </div>
@@ -93,8 +107,12 @@
         class="flex-1 rounded-md font-extrabold text-white flex justify-center items-center ml-10 mt-10 text-2xl"
         id="moveM"
       >
-        <div class="bg-gray-500 p-10 mr-10 text-2xl rounded-md">Your movement is {{test}}</div>
-        <div class="bg-gray-500 p-10 text-2xl rounded-md">Your time left 00:{{time}}</div>
+        <div class="bg-gray-500 p-10 mr-10 text-2xl rounded-md">
+          Your movement is {{ test }}
+        </div>
+        <div class="bg-gray-500 p-10 text-2xl rounded-md">
+          Your time left 00:{{ time }}
+        </div>
       </div>
 
       <div class="flex justify-between items-center">
@@ -112,7 +130,9 @@
     </div>
     <div
       class="absolute inset-x-0 bottom-0 flex justify-center items-center text-green-600"
-    >@Copyright ~ 2021. By rax</div>
+    >
+      @Copyright ~ 2021. By rax
+    </div>
   </div>
 </template>
 <script>
@@ -132,7 +152,7 @@ export default {
       postImage: [],
       learningProc: "hidden",
       modalClass:
-        "min-w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none"
+        "min-w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none",
     };
   },
   mounted() {
@@ -169,7 +189,7 @@ export default {
         "high_knees",
         "jumping_lunge_r",
         "jumping_lunge_l",
-        "lateral_shuffles"
+        "lateral_shuffles",
       ];
       let postArrayDisplay = [
         "Sqaut",
@@ -179,41 +199,41 @@ export default {
         "High knees",
         "Lunge (right side)",
         "Lunge (left side)",
-        "Lateral shuffles"
+        "Lateral shuffles",
       ];
       let postImage = {
         0: {
           img1: "../assets/img/sqN.png",
-          img2: "/assets/img/sqW.png"
+          img2: "/assets/img/sqW.png",
         },
         1: {
           img1: "../assets/img/jaN.png",
-          img2: "../assets/img/jaW.png"
+          img2: "../assets/img/jaW.png",
         },
         2: {
           img1: "../assets/img/jaN.png",
-          img2: "../assets/img/stR.png"
+          img2: "../assets/img/stR.png",
         },
         3: {
           img1: "../assets/img/jaN.png",
-          img2: "../assets/img/stL.png"
+          img2: "../assets/img/stL.png",
         },
         4: {
           img1: "../assets/img/hiR.png",
-          img2: "../assets/img/hiL.png"
+          img2: "../assets/img/hiL.png",
         },
         5: {
           img1: "../assets/img/lN.png",
-          img2: "../assets/img/lr.png"
+          img2: "../assets/img/lr.png",
         },
         6: {
           img1: "../assets/img/lN.png",
-          img2: "../assets/img/ll.png"
+          img2: "../assets/img/ll.png",
         },
         7: {
           img1: "../assets/img/LateN.png",
-          img2: "../assets/img/LateW.png"
-        }
+          img2: "../assets/img/LateW.png",
+        },
       };
       // self.postImage = postImage;
 
@@ -276,16 +296,32 @@ export default {
 
       // workout array
       let workoutArr = [];
+      //       "sqaut",
+      // "jack",
+      // "single_leg_stand_r",
+      // "single_leg_stand_l",
+      // "high_knees",
+      // "jumping_lunge_r",
+      // "jumping_lunge_l",
+      // "lateral_shuffles"
+      let cSqaut = 0;
+      let cJack = 0;
+      let cSingle_leg_stand_r = 0;
+      let cSingle_leg_stand_l = 0;
+      let cHigh_knees = 0;
+      let cJumping_lunge_r = 0;
+      let cJumping_lunge_l = 0;
+      let cLateral_shuffles = 0;
       // preload sound
       // eslint-disable-next-line no-unused-vars
-      p5.preload = preload => {
+      p5.preload = (preload) => {
         // fft = p5.FFT();
         // eslint-disable-next-line no-unused-vars
         gymsound = p5.loadSound("../sound/gym_sound.mp3");
       };
       // NOTE: Set up is here
       // eslint-disable-next-line no-unused-vars
-      p5.setup = setup => {
+      p5.setup = (setup) => {
         const myCanvas = p5.createCanvas(710, 710);
         // eslint-disable-next-line no-undef
         video = p5.createCapture(p5.VIDEO);
@@ -368,6 +404,15 @@ export default {
         //console.log(results[0].confidence);
         classifyPose();
       }
+      function returnPoseCount(p) {
+        if (timer <= 0) {
+          workoutArr[poseArray[pCount]] = p;
+          console.log(workoutArr);
+          timer = 10;
+          // count = 0;
+          pCount++;
+        }
+      }
       // new version of logic workout
       function calPose() {
         // let v0 = createVector(rightShoulderX, rightShoulderY);
@@ -379,13 +424,13 @@ export default {
           timer--;
           self.time = timer;
         }
-        if (timer <= 0) {
-          workoutArr[poseArray[pCount]] = count;
-          console.log(workoutArr);
-          timer = 10;
-          count = 0;
-          pCount++;
-        }
+        // if (timer <= 0) {
+        //   workoutArr[poseArray[pCount]] = count;
+        //   console.log(workoutArr);
+        //   timer = 10;
+        //   count = 0;
+        //   pCount++;
+        // }
         checkMovement(pCount);
         if (poseArray[pCount] == "sqaut") {
           let d = parseInt(
@@ -404,10 +449,11 @@ export default {
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d < 95 && d_prev >= 100) {
-            count++;
+            cSqaut++;
             moveArr.push(d);
-            console.log(count);
+            console.log(cSqaut);
           }
+          returnPoseCount(cSqaut)
 
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
@@ -437,9 +483,10 @@ export default {
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d >= 100 && p5.frameCount % 60 == 0) {
-            count++;
-            console.log(count);
+            cJack++;
+            console.log(cJack);
           }
+          returnPoseCount(cJack)
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
@@ -470,12 +517,13 @@ export default {
             p5.text("leg down", 100, 100);
             console.log(sec);
             if (sec >= 5) {
-              count++;
-              console.log("in counter : " + count);
+              cSingle_leg_stand_r++;
+              console.log("in counter : " + cSingle_leg_stand_r);
               sec = 0;
               p5.text("leg down", 100, 100);
             }
           }
+          returnPoseCount(cSingle_leg_stand_r)
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
@@ -506,13 +554,14 @@ export default {
             p5.text("leg down", 100, 100);
             console.log(sec);
             if (sec >= 5) {
-              count++;
-              console.log("in counter : " + count);
+              cSingle_leg_stand_l++;
+              console.log("in counter : " + cSingle_leg_stand_l);
 
               sec = 0;
               p5.text("leg down", 100, 100);
             }
           }
+          returnPoseCount(cSingle_leg_stand_l)
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
@@ -533,13 +582,14 @@ export default {
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d < 80 && d_prev >= 100) {
-            count++;
+            cHigh_knees++;
 
-            console.log(count);
+            console.log(cHigh_knees);
             // console.log("d_prev" + d_prev);
 
             // mySound.play();
           }
+          returnPoseCount(cHigh_knees)
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
@@ -559,13 +609,14 @@ export default {
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d < 100 && p5.frameCount % 60 == 0) {
-            count++;
-            console.log(count);
+            cJumping_lunge_r++;
+            console.log(cJumping_lunge_r);
 
             // console.log("d_prev" + d_prev);
 
             // mySound.play();
           }
+          returnPoseCount(cJumping_lunge_r)
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
@@ -587,9 +638,10 @@ export default {
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d < 100 && p5.frameCount % 60 == 0) {
-            count++;
-            console.log("after 5 : " + count);
+            cJumping_lunge_l++;
+            console.log("after 5 : " + cJumping_lunge_l);
           }
+          returnPoseCount(cJumping_lunge_l)
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
@@ -613,11 +665,12 @@ export default {
           p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d < 150 && dl < 100 && p5.frameCount % 60 == 0) {
-            count++;
+            cLateral_shuffles++;
 
-            console.log(count);
+            console.log(cLateral_shuffles);
           }
           p5.text(dl, rightUnderKneeX, rightUnderKneeY);
+          returnPoseCount(cLateral_shuffles)
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
@@ -659,7 +712,7 @@ export default {
 
       // NOTE: Draw is here
       // eslint-disable-next-line no-unused-vars
-      p5.draw = draw => {
+      p5.draw = (draw) => {
         p5.push();
         p5.translate(video.width, 0);
         p5.scale(-1, 1);
@@ -703,6 +756,6 @@ export default {
     const P5 = require("p5");
     // console.log(P5);
     new P5(script);
-  }
+  },
 };
 </script>
