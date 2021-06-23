@@ -10,7 +10,7 @@
       <div
         class="flex-1 rounded-md font-extrabold text-white flex justify-start items-center text-3xl absolute inset-x-0 bottom-0"
       >
-        <router-link to="/">
+        <a href="/">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-16 w-16"
@@ -25,8 +25,8 @@
               d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
             />
           </svg>
-        </router-link>
-        <router-link to="/">Back</router-link>
+        </a>
+        <a href="/">Back</a>
       </div>
     </div>
     <div :class="learningProc+' '+modalClass" style="background: rgba(0,0,0,.2);" id="modal-id">

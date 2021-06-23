@@ -10,7 +10,7 @@
       <div
         class="flex-1 rounded-md font-extrabold text-white flex justify-start items-center text-3xl absolute inset-x-0 bottom-0"
       >
-        <router-link to="/">
+        <a href="/">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-16 w-16"
@@ -25,8 +25,8 @@
               d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
             />
           </svg>
-        </router-link>
-        <router-link to="/">Back</router-link>
+        </a>
+        <a href="/">Back</a>
       </div>
     </div>
     <div
@@ -104,15 +104,27 @@
         class="bg-gray-500 flex-1 rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
       >Song</div>-->
       <div
-        class="flex-1 rounded-md font-extrabold text-white flex justify-center items-center ml-10 mt-10 text-2xl"
+        class="flex-1 rounded-md font-extrabold text-white flex justify-center items-center ml-10 mt-5 text-2xl"
         id="moveM"
       >
-        <div class="bg-gray-500 p-10 mr-10 text-2xl rounded-md">
+        <div class="bg-gray-500 p-5 mr-10 text-2xl rounded-md">
           Your movement is {{ test }}
         </div>
-        <div class="bg-gray-500 p-10 text-2xl rounded-md">
+        <div class="bg-gray-500 p-5 text-2xl rounded-md">
           Your time left 00:{{ time }}
         </div>
+      </div>
+      <div
+        class="flex-1 rounded-md font-extrabold text-white flex justify-center items-center ml-10 mt-10 text-2xl"
+      >
+        <div
+          id="btnRest"
+          class="bg-gray-500 hover:bg-gray-700 text-white font-bold p-2 mr-10 text-2xl rounded font-extrabold"
+        ></div>
+        <div
+          id="btnStop"
+          class="bg-gray-500 hover:bg-gray-700 text-white font-bold p-2 mr-10 text-2xl rounded font-extrabold"
+        ></div>
       </div>
 
       <div class="flex justify-between items-center">
@@ -292,6 +304,7 @@ export default {
       let moveArr = [];
       // eslint-disable-next-line no-unused-vars
       let gymsound;
+      // eslint-disable-next-line no-unused-vars
       let doneLearn;
 
       // workout array
@@ -327,10 +340,34 @@ export default {
         video = p5.createCapture(p5.VIDEO);
         video.size(p5.width, p5.height);
         myCanvas.parent("canvasDiv");
-
+        let buttonRest = p5.createButton("Rest");
+        let buttonStop = p5.createButton("Stop");
+        let btnContinue = p5.createButton("Continue");
+        btnContinue.addClass("hidden");
+        buttonRest.parent("btnRest");
+        buttonRest.mousePressed(btnRestPress);
+        buttonStop.parent("btnStop");
+        buttonStop.mousePressed(btnStopPress);
         myCanvas.addClass(
           "flex-1 rounded-md font-extrabold text-white flex justify-center items-center text-2xl m-10"
         );
+        function btnRestPress() {
+          buttonRest.addClass("hidden");
+          btnContinue.removeClass("hidden");
+          btnContinue.parent("btnRest");
+          btnContinue.mousePressed(btnContinuePress);
+          p5.noLoop();
+        }
+        function btnContinuePress() {
+          btnContinue.addClass("hidden");
+          buttonRest.removeClass("hidden");
+          buttonRest.parent("btnRest");
+          buttonRest.mousePressed(btnRestPress);
+          p5.loop();
+        }
+        function btnStopPress() {
+          window.location.href = "/";
+        }
 
         // add gym sound effect
         gymsound.play();
@@ -453,7 +490,7 @@ export default {
             moveArr.push(d);
             console.log(cSqaut);
           }
-          returnPoseCount(cSqaut)
+          returnPoseCount(cSqaut);
 
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
@@ -486,7 +523,7 @@ export default {
             cJack++;
             console.log(cJack);
           }
-          returnPoseCount(cJack)
+          returnPoseCount(cJack);
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
@@ -523,7 +560,7 @@ export default {
               p5.text("leg down", 100, 100);
             }
           }
-          returnPoseCount(cSingle_leg_stand_r)
+          returnPoseCount(cSingle_leg_stand_r);
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
@@ -561,7 +598,7 @@ export default {
               p5.text("leg down", 100, 100);
             }
           }
-          returnPoseCount(cSingle_leg_stand_l)
+          returnPoseCount(cSingle_leg_stand_l);
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
@@ -589,7 +626,7 @@ export default {
 
             // mySound.play();
           }
-          returnPoseCount(cHigh_knees)
+          returnPoseCount(cHigh_knees);
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
@@ -616,7 +653,7 @@ export default {
 
             // mySound.play();
           }
-          returnPoseCount(cJumping_lunge_r)
+          returnPoseCount(cJumping_lunge_r);
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
@@ -641,7 +678,7 @@ export default {
             cJumping_lunge_l++;
             console.log("after 5 : " + cJumping_lunge_l);
           }
-          returnPoseCount(cJumping_lunge_l)
+          returnPoseCount(cJumping_lunge_l);
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
@@ -670,15 +707,15 @@ export default {
             console.log(cLateral_shuffles);
           }
           p5.text(dl, rightUnderKneeX, rightUnderKneeY);
-          returnPoseCount(cLateral_shuffles)
+          returnPoseCount(cLateral_shuffles);
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
           p5.textSize(50);
           p5.fill(255);
           d_prev = d;
         } else if (pCount >= poseArray.length) {
           pCount = 0;
-          doneLearn = "";
-          self.learningProc = doneLearn;
+          // doneLearn = "";
+          // self.learningProc = doneLearn;
         }
       }
       function gotPoses(poses) {
