@@ -9,6 +9,24 @@ import Train from '../views/Train.vue'
 import ToDo from '../views/ToDo.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+function guardMyroute(to, from, next)
+{
+ var isAuthenticated= false;
+//this is just an example. You will have to find a better or 
+// centralised way to handle you localstorage data handling 
+if(localStorage.getItem('authE'))
+  isAuthenticated = true;
+ else
+  isAuthenticated= false;
+ if(isAuthenticated) 
+ {
+  next(); // allow to enter route
+ } 
+ else
+ {
+  next('/'); // go to '/login';
+ }
+}
 
 const routes = [{
     path: '/',
@@ -35,6 +53,7 @@ const routes = [{
   },
   {
     path: '/train',
+    beforeEnter : guardMyroute,
     name: 'Train',
     component: Train
   },
@@ -50,6 +69,7 @@ const routes = [{
   },
   {
     path: '/todo',
+    beforeEnter : guardMyroute,
     name: 'ToDo',
     component: ToDo
   },

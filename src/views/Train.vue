@@ -366,7 +366,8 @@ export default {
           p5.loop();
         }
         function btnStopPress() {
-          window.location.href = "/";
+          console.log(workoutArr);
+          // window.location.href = "/";
         }
 
         // add gym sound effect

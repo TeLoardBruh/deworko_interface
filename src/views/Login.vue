@@ -21,18 +21,24 @@
         >
           <div class="p-5">
             <p class="text-white text-center">Login</p>
-            <form action class="flex flex-col">
-              <input type="text" name id placeholder="Email........" class="m-5 bg-gray-200 p-5" />
-              <input type="text" name id placeholder="Password........" class="m-5 bg-gray-200 p-5" />
+            <div action class="flex flex-col">
+              <input
+                type="text"
+                name
+                id
+                placeholder="Email........"
+                class="m-5 bg-gray-200 p-5"
+                v-model="email"
+              />
               <div class="grid grid-cols-2">
                 <div></div>
                 <div
                   class="border-solid bg-gray-500 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center m-5 p-2"
                 >
-                  <router-link to="#">Login</router-link>
+                  <button v-on:click="login">Login</button>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
         <div></div>
@@ -42,7 +48,9 @@
     <section>
       <div
         class="absolute inset-x-0 bottom-0 flex justify-center items-center text-green-600"
-      >@Copyright ~ 2021. By rax</div>
+      >
+        @Copyright ~ 2021. By rax
+      </div>
     </section>
   </div>
 </template>
@@ -50,12 +58,29 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
-
+import axios from "axios";
 export default {
   name: "Home",
+  email: "",
   components: {
     // HelloWorld
-  }
+  },
+  methods: {
+    login() {
+      axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
+      axios
+        .post("http://localhost:3000/login", {
+          email: this.email,
+        })
+        .then((res) => {
+          // console.log(res);
+          let email = res.data.email;
+          // console.log(email);
+          window.localStorage.setItem("authE",email);
+          window.location.href = "/";
+        });
+    },
+  },
 };
 </script>
 <style>
