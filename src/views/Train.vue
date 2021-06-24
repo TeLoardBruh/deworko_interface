@@ -108,7 +108,7 @@
         id="moveM"
       >
         <div class="bg-gray-500 p-5 mr-10 text-2xl rounded-md">
-          Your movement is {{ test }}
+          Your movement is {{ test }} : {{ counterVue }}
         </div>
         <div class="bg-gray-500 p-5 text-2xl rounded-md">
           Your time left 00:{{ time }}
@@ -156,6 +156,8 @@ import * as p5 from "p5";
 import "../p5.sound.js";
 // eslint-disable-next-line no-unused-vars
 import ml5 from "ml5";
+import axios from "axios";
+
 export default {
   data() {
     return {
@@ -165,6 +167,7 @@ export default {
       learningProc: "hidden",
       modalClass:
         "min-w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none",
+      counterVue: 0,
     };
   },
   mounted() {
@@ -365,8 +368,28 @@ export default {
           buttonRest.mousePressed(btnRestPress);
           p5.loop();
         }
+
         function btnStopPress() {
-          console.log(workoutArr);
+          // Object.values(obj)
+          // let entries = Object.entries(workoutArr);
+          // for (const [prop, val] of entries) {
+          //   console.log(prop, val);
+
+          // }
+          axios
+            .post("http://localhost:3000/workout", {
+              sqaut: workoutArr.sqaut,
+              jack: workoutArr.jack,
+              single_leg_stand_r: workoutArr.single_leg_stand_r,
+              single_leg_stand_l: workoutArr.single_leg_stand_l,
+              high_knees: workoutArr.high_knees,
+              jumping_lunge_r: workoutArr.jumping_lunge_r,
+              jumping_lunge_l: workoutArr.jumping_lunge_l,
+              lateral_shuffles: workoutArr.lateral_shuffles,
+            })
+            .then((res) => {
+              console.log("this in res " + res);
+            });
           // window.location.href = "/";
         }
 
@@ -445,7 +468,8 @@ export default {
       function returnPoseCount(p) {
         if (timer <= 0) {
           workoutArr[poseArray[pCount]] = p;
-          console.log(workoutArr);
+          // console.log(workoutArr);
+          self.counterVue = 0;
           timer = 10;
           // count = 0;
           pCount++;
@@ -488,6 +512,7 @@ export default {
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d < 95 && d_prev >= 100) {
             cSqaut++;
+            self.counterVue = cSqaut;
             moveArr.push(d);
             console.log(cSqaut);
           }
@@ -522,6 +547,7 @@ export default {
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d >= 100 && p5.frameCount % 60 == 0) {
             cJack++;
+            self.counterVue = cJack;
             console.log(cJack);
           }
           returnPoseCount(cJack);
@@ -556,6 +582,7 @@ export default {
             console.log(sec);
             if (sec >= 5) {
               cSingle_leg_stand_r++;
+              self.counterVue = cSingle_leg_stand_r;
               console.log("in counter : " + cSingle_leg_stand_r);
               sec = 0;
               p5.text("leg down", 100, 100);
@@ -594,7 +621,7 @@ export default {
             if (sec >= 5) {
               cSingle_leg_stand_l++;
               console.log("in counter : " + cSingle_leg_stand_l);
-
+              self.counterVue = cSingle_leg_stand_l;
               sec = 0;
               p5.text("leg down", 100, 100);
             }
@@ -624,7 +651,7 @@ export default {
 
             console.log(cHigh_knees);
             // console.log("d_prev" + d_prev);
-
+            self.counterVue = cHigh_knees;
             // mySound.play();
           }
           returnPoseCount(cHigh_knees);
@@ -651,7 +678,7 @@ export default {
             console.log(cJumping_lunge_r);
 
             // console.log("d_prev" + d_prev);
-
+            self.counterVue = cJumping_lunge_r;
             // mySound.play();
           }
           returnPoseCount(cJumping_lunge_r);
@@ -677,6 +704,7 @@ export default {
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d < 100 && p5.frameCount % 60 == 0) {
             cJumping_lunge_l++;
+            self.counterVue = cJumping_lunge_l;
             console.log("after 5 : " + cJumping_lunge_l);
           }
           returnPoseCount(cJumping_lunge_l);
@@ -704,7 +732,7 @@ export default {
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d < 150 && dl < 100 && p5.frameCount % 60 == 0) {
             cLateral_shuffles++;
-
+            self.counterVue = cLateral_shuffles;
             console.log(cLateral_shuffles);
           }
           p5.text(dl, rightUnderKneeX, rightUnderKneeY);
