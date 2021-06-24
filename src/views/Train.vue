@@ -374,10 +374,11 @@ export default {
           // let entries = Object.entries(workoutArr);
           // for (const [prop, val] of entries) {
           //   console.log(prop, val);
-
+          let email = localStorage.getItem("authE");
           // }
           axios
             .post("http://localhost:3000/workout", {
+              email: email,
               sqaut: workoutArr.sqaut,
               jack: workoutArr.jack,
               single_leg_stand_r: workoutArr.single_leg_stand_r,
@@ -389,6 +390,7 @@ export default {
             })
             .then((res) => {
               console.log("this in res " + res);
+               window.location.href = "/";
             });
           // window.location.href = "/";
         }
