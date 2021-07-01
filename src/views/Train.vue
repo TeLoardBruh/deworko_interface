@@ -306,8 +306,6 @@ export default {
       // eslint-disable-next-line no-unused-vars
       let moveArr = [];
       // eslint-disable-next-line no-unused-vars
-      let gymsound;
-      // eslint-disable-next-line no-unused-vars
       let doneLearn;
 
       // workout array
@@ -330,11 +328,6 @@ export default {
       let cLateral_shuffles = 0;
       // preload sound
       // eslint-disable-next-line no-unused-vars
-      p5.preload = (preload) => {
-        // fft = p5.FFT();
-        // eslint-disable-next-line no-unused-vars
-        gymsound = p5.loadSound("../sound/gym_sound.mp3");
-      };
       // NOTE: Set up is here
       // eslint-disable-next-line no-unused-vars
       p5.setup = (setup) => {
@@ -395,9 +388,7 @@ export default {
           // window.location.href = "/";
         }
 
-        // add gym sound effect
-        gymsound.play();
-        gymsound.setVolume(0.1);
+        
 
         video.hide();
         poseNet = ml5.poseNet(video, modelLoaded);

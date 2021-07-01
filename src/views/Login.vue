@@ -32,11 +32,21 @@
               />
               <div class="grid grid-cols-2">
                 <div></div>
-                <div
+                
+                <input
+                  type="button"
+                  v-bind:disabled="isDisabled"
+                  v-on:click="login"
+                  value="Login"
+                  class="border-solid rounded-md border-4 border-black-500 border-opacity-100 font-extrabold text-black flex justify-center items-center m-5 p-2"
+                />
+                <!-- <div
                   class="border-solid bg-gray-500 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center m-5 p-2"
+                  v-on:click="login"
+                  v-bind:disabled="isDisabled"
                 >
-                  <button v-on:click="login">Login</button>
-                </div>
+                  <button>Login</button>
+                </div> -->
               </div>
             </div>
           </div>
@@ -61,9 +71,20 @@
 import axios from "axios";
 export default {
   name: "Home",
-  email: "",
+
   components: {
     // HelloWorld
+  },
+  data() {
+    return {
+      email: "",
+    };
+  },
+  computed: {
+    isDisabled() {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return !re.test(this.email);
+    },
   },
   methods: {
     login() {
@@ -77,8 +98,8 @@ export default {
           let email = res.data.email;
           let ids = res.data.id;
           // console.log(email);
-          window.localStorage.setItem("authE",email);
-          window.localStorage.setItem("ids",ids);
+          window.localStorage.setItem("authE", email);
+          window.localStorage.setItem("ids", ids);
           window.location.href = "/";
         });
     },

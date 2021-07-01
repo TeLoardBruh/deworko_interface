@@ -37,20 +37,20 @@
     </section>
     <section class="flex justify-center items-center h-2/6">
       <div class="font-extrabold">
-        <div class="text-white border-b-4 text-4xl border-green-500">
+        <div class="text-white border-b-4 text-5xl border-green-500">
           Welcome to DeWorko
         </div>
-        <div class="text-white border-b-4 text-4xl border-green-500 pl-10">
+        <div class="text-white border-b-4 text-5xl border-green-500 pl-10">
           your AI personal trainer
         </div>
       </div>
     </section>
 
     <section>
-      <div class="m-10 grid grid-cols-2 gap-2 lg:grid-cols-3">
+      <div class="m-10 grid grid-cols-2 gap-3 lg:grid-cols-3">
         <router-link to="/instruction/learn">
           <div
-            class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
+            class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center text-4xl"
           >
             Learn
           </div>
@@ -60,39 +60,37 @@
         <div v-if="isAuthenticated == true">
           <router-link to="todo">
             <div
-              class="border-solid bg-gray-500 h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
+              class="border-solid bg-gray-500 h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center text-4xl"
             >
               Todo
             </div>
           </router-link>
         </div>
-        
+
         <div v-if="isAuthenticated == true">
           <router-link to="/instruction/train">
             <div
-              class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
+              class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center text-4xl"
             >
               Train
             </div>
           </router-link>
         </div>
-        
+
         <div></div>
         <div v-if="isAuthenticated == true">
-          <router-link :to="'report'+ids">
+          <router-link :to="'report' + ids">
             <div
-              class="border-solid bg-gray-500 h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
+              class="border-solid bg-gray-500 h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center text-4xl"
             >
               Report
             </div>
           </router-link>
         </div>
-        
-        
 
         <router-link to="/about">
           <div
-            class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
+            class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center text-4xl"
           >
             About Us
           </div>
@@ -112,13 +110,13 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
-
+import axios from "axios";
 export default {
   name: "Home",
   data() {
     return {
       isAuthenticated: false,
-      ids: ''
+      ids: "",
     };
   },
   components: {
@@ -129,7 +127,14 @@ export default {
   },
   mounted() {
     this.guardMyroute();
+    let id = window.localStorage.getItem("ids");
     // console.log("in moute" + this.isAuthenticated);
+    axios.get(`http://localhost:3000/user/${id}`).then((res) => {
+      //   console.log(res);
+      let userWork = res.data;
+      console.log(userWork)
+      // this.works = userWork;
+    });
   },
   methods: {
     guardMyroute() {

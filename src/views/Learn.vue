@@ -2,7 +2,9 @@
 <template>
   <div class="grid grid-cols-3 gap-4 overflow-hidden relative">
     <div class="col-span-1 bg-green-500 h-screen relattive fixed w-80">
-      <div class="flex h-screen justify-center items-center text-white font-extrabold text-4xl">
+      <div
+        class="flex h-screen justify-center items-center text-white font-extrabold text-4xl"
+      >
         <div class="flex flex-col justify-center items-center">
           <div class>Learn</div>
         </div>
@@ -29,8 +31,14 @@
         <a href="/">Back</a>
       </div>
     </div>
-    <div :class="learningProc+' '+modalClass" style="background: rgba(0,0,0,.2);" id="modal-id">
-      <div class="w-full max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg bg-white">
+    <div
+      :class="learningProc + ' ' + modalClass"
+      style="background: rgba(0,0,0,.2);"
+      id="modal-id"
+    >
+      <div
+        class="w-full max-w-lg p-5 relative mx-auto my-auto rounded-xl shadow-lg bg-white"
+      >
         <!--content-->
         <div class>
           <!--body-->
@@ -64,10 +72,12 @@
                 d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
               />
             </svg>
-            <h2 class="text-xl font-bold py-4">Hello ! Lets get you in shape in no time</h2>
+            <h2 class="text-xl font-bold py-4">
+              Hello ! Lets get you in shape in no time
+            </h2>
             <p class="text-sm text-gray-500 px-8">
-              Do you to move to training activities ?
-              This process will include each move in 30 seconds interval
+              Do you to move to training activities ? This process will include
+              each move in 30 seconds interval
             </p>
           </div>
           <!--footer-->
@@ -75,12 +85,16 @@
             <router-link to="/learn">
               <button
                 class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"
-              >No</button>
+              >
+                No
+              </button>
             </router-link>
             <router-link to="/train">
               <button
                 class="mb-2 md:mb-0 bg-green-500 border border-green-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600"
-              >Yes</button>
+              >
+                Yes
+              </button>
             </router-link>
           </div>
         </div>
@@ -94,8 +108,12 @@
         class="flex-1 rounded-md font-extrabold text-white flex justify-center items-center ml-10 mt-10 text-2xl"
         id="moveM"
       >
-        <div class="bg-gray-500 p-10 mr-10 text-2xl rounded-md">Your movement is {{test}}</div>
-        <div class="bg-gray-500 p-10 text-2xl rounded-md">Your movement is {{time}}</div>
+        <div class="bg-gray-500 p-10 mr-10 text-2xl rounded-md">
+          Your movement is {{ test }}
+        </div>
+        <div class="bg-gray-500 p-10 text-2xl rounded-md">
+          Your movement is {{ time }}
+        </div>
       </div>
 
       <div class="flex justify-between items-center">
@@ -103,10 +121,12 @@
         <!-- <div
           class="bg-gray-500 rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
         >Train model</div>-->
-        <div class="mt-10 bg-gray-500 p-10 text-2xl rounded-md text-white font-extrabold mr-2">
-          How to do {{test}} :
+        <div
+          class="mt-10 bg-gray-500 p-10 text-2xl rounded-md text-white font-extrabold mr-2"
+        >
+          How to do {{ test }} :
           <br />
-          {{postImage.instruction}}
+          {{ postImage.instruction }}
         </div>
         <div>
           <img :src="postImage.img1" />
@@ -118,7 +138,9 @@
     </div>
     <div
       class="absolute inset-x-0 bottom-0 flex justify-center items-center text-green-600"
-    >@Copyright ~ 2021. By rax</div>
+    >
+      @Copyright ~ 2021. By rax
+    </div>
   </div>
 </template>
 <script>
@@ -138,7 +160,7 @@ export default {
       postImage: [],
       learningProc: "hidden",
       modalClass:
-        "min-w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none"
+        "min-w-screen h-screen animated fadeIn faster fixed left-0 top-0 flex justify-center items-center inset-0 z-50 outline-none focus:outline-none",
     };
   },
   mounted() {
@@ -175,7 +197,7 @@ export default {
         "high_knees",
         "jumping_lunge_r",
         "jumping_lunge_l",
-        "lateral_shuffles"
+        "lateral_shuffles",
       ];
       let postArrayDisplay = [
         "Sqaut",
@@ -185,57 +207,57 @@ export default {
         "High knees",
         "Lunge (right side)",
         "Lunge (left side)",
-        "Lateral shuffles"
+        "Lateral shuffles",
       ];
       let postImage = {
         0: {
           img1: "../assets/img/sqN.png",
           img2: "/assets/img/sqW.png",
           instruction:
-            "Stand with feet just wider than hip-width apart and bend your hips down"
+            "Stand with feet just wider than hip-width apart and bend your hips down",
         },
         1: {
           img1: "../assets/img/jaN.png",
           img2: "../assets/img/jaW.png",
           instruction:
-            "Stand with your feet together, and, your arms at your side in one jumping motion move your feet out to your sides."
+            "Stand with your feet together, and, your arms at your side in one jumping motion move your feet out to your sides.",
         },
         2: {
           img1: "../assets/img/jaN.png",
           img2: "../assets/img/stR.png",
           instruction:
-            "Lift your right leg off the floor and bend it back at the knee"
+            "Lift your right leg off the floor and bend it back at the knee",
         },
         3: {
           img1: "../assets/img/jaN.png",
           img2: "../assets/img/stL.png",
           instruction:
-            "Lift your left leg off the floor and bend it back at the knee"
+            "Lift your left leg off the floor and bend it back at the knee",
         },
         4: {
           img1: "../assets/img/hiR.png",
           img2: "../assets/img/hiL.png",
           instruction:
-            "Normal stands, then bend your Knees up higher than hips positions."
+            "Normal stands, then bend your Knees up higher than hips positions.",
         },
         5: {
           img1: "../assets/img/lN.png",
           img2: "../assets/img/lr.png",
           instruction:
-            "Normal stands (turn your right side around 45 degree facing the camera), then start to put your right foot forward and bend into 90 degree angle."
+            "Normal stands (turn your right side around 45 degree facing the camera), then start to put your right foot forward and bend into 90 degree angle.",
         },
         6: {
           img1: "../assets/img/lN.png",
           img2: "../assets/img/ll.png",
           instruction:
-            "Normal stands (turn your left side around 45 degree facing the camera), then start to put your left foot forward and bend into 90 degree angle"
+            "Normal stands (turn your left side around 45 degree facing the camera), then start to put your left foot forward and bend into 90 degree angle",
         },
         7: {
           img1: "../assets/img/LateN.png",
           img2: "../assets/img/LateW.png",
           instruction:
-            "Put your self in sqaut positions then move left and right"
-        }
+            "Put your self in sqaut positions then move left and right",
+        },
       };
       // self.postImage = postImage;
 
@@ -293,18 +315,13 @@ export default {
       // eslint-disable-next-line no-unused-vars
       let moveArr = [];
       // eslint-disable-next-line no-unused-vars
-      let gymsound;
       let doneLearn;
       // preload sound
       // eslint-disable-next-line no-unused-vars
-      p5.preload = preload => {
-        // fft = p5.FFT();
-        // eslint-disable-next-line no-unused-vars
-        gymsound = p5.loadSound("../sound/gym_sound.mp3");
-      };
+
       // NOTE: Set up is here
       // eslint-disable-next-line no-unused-vars
-      p5.setup = setup => {
+      p5.setup = (setup) => {
         const myCanvas = p5.createCanvas(710, 710);
         // eslint-disable-next-line no-undef
         video = p5.createCapture(p5.VIDEO);
@@ -314,10 +331,6 @@ export default {
         myCanvas.addClass(
           "flex-1 rounded-md font-extrabold text-white flex justify-center items-center text-2xl m-10"
         );
-
-        // add gym sound effect
-        gymsound.play();
-        gymsound.setVolume(0.1);
 
         video.hide();
         poseNet = ml5.poseNet(video, modelLoaded);
@@ -804,7 +817,7 @@ export default {
 
       // NOTE: Draw is here
       // eslint-disable-next-line no-unused-vars
-      p5.draw = draw => {
+      p5.draw = (draw) => {
         p5.push();
         p5.translate(video.width, 0);
         p5.scale(-1, 1);
@@ -855,6 +868,6 @@ export default {
     const P5 = require("p5");
     // console.log(P5);
     new P5(script);
-  }
+  },
 };
 </script>

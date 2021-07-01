@@ -79,7 +79,7 @@
                       <tbody
                         class="text-gray-700"
                         v-for="item in works"
-                        :key="works.id"
+                        :key="item.id"
                       >
                         <tr>
                           <td class="text-left py-3 px-4">
@@ -149,54 +149,40 @@
                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                   ></path>
                 </svg>
-                <p class="">05-25-2021</p>
+                <p class="">{{ item.createdAt.split("T")[0] }}</p>
               </div>
-              <button
-                class="mb-2 md:mb-0 bg-gray-900 px-5 py-2 shadow-sm tracking-wider text-white rounded-full hover:bg-gray-800"
-                type="button"
-                aria-label="like"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M5 13l4 4L19 7"
-                  />
-                </svg>
-              </button>
-              <button
-                class="mb-2 md:mb-0 bg-gray-900 px-5 py-2 shadow-sm tracking-wider text-white rounded-full hover:bg-gray-800"
-                type="button"
-                aria-label="like"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
-                  />
-                </svg>
-              </button>
+              <input
+                type="checkbox"
+                class="form-checkbox h-8 w-8 m-2"
+                v-model="item.done"
+                v-on:click="updateReport(item.id)"
+              />
             </div>
             <div class="flex p-4 pb-2 border-t border-gray-200 "></div>
             <div class="flex space-x-3 text-sm font-medium"></div>
           </div>
         </div>
-        <div>6</div>
+        <div
+          class="flex-1 rounded-md font-extrabold text-white flex justify-start items-center text-3xl absolute inset-x-0 bottom-0"
+        >
+          <a href="/">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-16 w-16"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M11 15l-3-3m0 0l3-3m-3 3h8M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
+              />
+            </svg>
+          </a>
+          <a href="/">Back</a>
+        </div>
       </div>
     </section>
 
@@ -216,7 +202,6 @@
 import axios from "axios";
 export default {
   name: "Home",
-  email: "",
 
   components: {
     // HelloWorld
@@ -225,10 +210,14 @@ export default {
     return {
       works: [],
       goals: [],
+      toggle: true,
+      email: "",
     };
   },
+
   mounted() {
-    let id = this.$route.params.id;
+    
+    let id = window.localStorage.getItem("ids");
     axios.get(`http://localhost:3000/userPost/${id}`).then((res) => {
       //   console.log(res);
       let userWork = res.data;
@@ -253,6 +242,19 @@ export default {
           // console.log(email);
           window.localStorage.setItem("authE", email);
           window.location.href = "/";
+        });
+    },
+    updateReport(id) {
+      // let id = window.localStorage.getItem("ids");
+      let done = !this.toggle;
+      axios
+        .put(`http://localhost:3000/updatereport/${id}`, {
+          done: done,
+        })
+        .then((res) => {
+          console.log(res);
+          
+          // window.location.href = "/";
         });
     },
   },
