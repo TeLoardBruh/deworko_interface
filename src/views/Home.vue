@@ -11,8 +11,9 @@
           <button
             v-on:click="logout"
             class="border-solid h-16 p-5 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold flex justify-center items-center text-white"
-            >Logout</button
           >
+            Logout
+          </button>
         </div>
       </div>
       <div v-else class="flex">
@@ -65,7 +66,7 @@
             </div>
           </router-link>
         </div>
-        <div v-else></div>
+        
         <div v-if="isAuthenticated == true">
           <router-link to="/instruction/train">
             <div
@@ -75,10 +76,20 @@
             </div>
           </router-link>
         </div>
-        <div v-else></div>
+        
+        <div></div>
+        <div v-if="isAuthenticated == true">
+          <router-link :to="'report'+ids">
+            <div
+              class="border-solid bg-gray-500 h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
+            >
+              Report
+            </div>
+          </router-link>
+        </div>
+        
+        
 
-        <div></div>
-        <div></div>
         <router-link to="/about">
           <div
             class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center"
@@ -107,6 +118,7 @@ export default {
   data() {
     return {
       isAuthenticated: false,
+      ids: ''
     };
   },
   components: {
@@ -125,6 +137,9 @@ export default {
 
       //this is just an example. You will have to find a better or
       // centralised way to handle you localstorage data handling
+      let ids = localStorage.getItem("ids");
+      this.ids = ids;
+      // console.log(this.ids)
       if (localStorage.getItem("authE")) {
         this.isAuthenticated = true;
         // console.log("in true case" + this.isAuthenticated);
@@ -133,10 +148,10 @@ export default {
         // console.log("in false case" + this.isAuthenticated);
       }
     },
-    logout(){
+    logout() {
       window.localStorage.removeItem("authE");
       window.location.reload();
-    }
+    },
   },
 };
 </script>

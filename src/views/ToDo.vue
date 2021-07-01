@@ -21,18 +21,37 @@
         >
           <div class="p-5">
             <p class="text-white text-center">ToDo</p>
-            <form action class="flex flex-col">
-              <input type="text" name id placeholder="Title........" class="m-5 bg-gray-200 p-5" />
-              <input type="text" name id placeholder="Description........" class="m-5 bg-gray-200 p-5" />
+            <div class="flex flex-col">
+              <select
+                v-model="selected"
+                class="border border-gray-300 rounded-full text-gray-600 h-10 mt-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none"
+              >
+                <option disabled value="">Choose a moves</option>
+                <option value="sqaut">Sqaut</option>
+                <option value="jack">Jumping Jack</option>
+                <option value="single_leg">Single leg stand</option>
+                <option value="high_knees">High knees</option>
+                <option value="jumping_lunge">Lunge</option>
+                <option value="lateral_shuffles">Lateral shuffles</option>
+              </select>
+
+              <input
+                type="text"
+                name
+                id
+                placeholder="Number of moves"
+                v-model="number"
+                class="border border-gray-300 rounded-full text-gray-600 h-10 pl-5 pr-10 mt-10 bg-white hover:border-gray-400 focus:outline-none appearance-none"
+              />
               <div class="grid grid-cols-2">
                 <div></div>
                 <div
                   class="border-solid bg-gray-500 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center m-5 p-2"
                 >
-                  <router-link to="#">Create</router-link>
+                  <button v-on:click="create">Create</button>
                 </div>
               </div>
-            </form>
+            </div>
           </div>
         </div>
         <div></div>
@@ -42,7 +61,9 @@
     <section>
       <div
         class="absolute inset-x-0 bottom-0 flex justify-center items-center text-green-600"
-      >@Copyright ~ 2021. By rax</div>
+      >
+        @Copyright ~ 2021. By rax
+      </div>
     </section>
   </div>
 </template>
@@ -50,12 +71,38 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld.vue'
-
+import axios from "axios";
 export default {
   name: "Home",
   components: {
     // HelloWorld
-  }
+  },
+  data() {
+    return {
+      selected: "",
+      number: "",
+    };
+  },
+  methods: {
+    create() {
+      let selected = this.selected;
+      let number = this.number;
+      let email = localStorage.getItem("authE");
+      // console.log(selected, number);
+      axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
+      axios
+        .post("http://localhost:3000/post", {
+          title: selected,
+          content: number,
+          email: email,
+        })
+        .then(() => {
+          //
+
+          window.location.href = "/todo";
+        });
+    },
+  },
 };
 </script>
 <style>

@@ -75,8 +75,10 @@ export default {
         .then((res) => {
           // console.log(res);
           let email = res.data.email;
+          let ids = res.data.id;
           // console.log(email);
           window.localStorage.setItem("authE",email);
+          window.localStorage.setItem("ids",ids);
           window.location.href = "/";
         });
     },

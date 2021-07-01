@@ -9,6 +9,7 @@ import Train from '../views/Train.vue'
 import ToDo from '../views/ToDo.vue'
 import Login from '../views/Login.vue'
 import Register from '../views/Register.vue'
+import Report from '../views/Report.vue'
 function guardMyroute(to, from, next)
 {
  var isAuthenticated= false;
@@ -72,6 +73,12 @@ const routes = [{
     beforeEnter : guardMyroute,
     name: 'ToDo',
     component: ToDo
+  },
+  {
+    path: '/report:id',
+    beforeEnter : guardMyroute,
+    name: 'Report',
+    component: Report
   },
 
 
