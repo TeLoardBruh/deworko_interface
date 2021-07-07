@@ -2,7 +2,8 @@
   <div class="bg-home h-screen">
     <section class="ml-10 grid grid-cols-6 gap-4 lg:grid-cols-6">
       <div
-        class="col-start-1 col-end-4 border-solid h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold flex justify-center items-center"
+        class="col-start-1 col-end-4 border-solid h-auto flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-bold flex justify-center items-center
+        hover:bg-green-500 dark:hover:bg-green-500 hover:border-transparent | transition-colors duration-500"
       >
         <router-link to="/" class="text-white">DeWroko</router-link>
       </div>
@@ -10,7 +11,8 @@
         <div class="ml-5 mr-5">
           <button
             v-on:click="logout"
-            class="border-solid h-16 p-5 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold flex justify-center items-center text-white"
+            class="border-solid h-auto p-5 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-bold flex justify-center items-center text-white
+            hover:bg-green-500 dark:hover:bg-green-500 hover:border-transparent | transition-colors duration-500"
           >
             Logout
           </button>
@@ -21,14 +23,16 @@
         <div class="ml-5 mr-5">
           <router-link
             to="/login"
-            class="border-solid h-16 p-5 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold flex justify-center items-center text-white"
+            class="border-solid h-auto p-5 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-bold flex justify-center items-center text-white
+            hover:bg-green-500 dark:hover:bg-green-500 hover:border-transparent | transition-colors duration-500"
             >Login</router-link
           >
         </div>
         <div class="ml-5 mr-5">
           <router-link
             to="/Register"
-            class="border-solid h-16 p-5 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold flex justify-center items-center text-white"
+            class="border-solid h-auto p-5 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-bold flex justify-center items-center text-white 
+            hover:bg-green-500 dark:hover:bg-green-500 hover:border-transparent | transition-colors duration-500"
             >Register</router-link
           >
         </div>
@@ -50,7 +54,7 @@
       <div class="m-10 grid grid-cols-2 gap-3 lg:grid-cols-3">
         <router-link to="/instruction/learn">
           <div
-            class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center text-4xl"
+            class="border-solid h-auto bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-bold text-white flex justify-center items-center text-7xl hover:bg-green-500 dark:hover:bg-green-500 hover:border-transparent | transition-colors duration-500"
           >
             Learn
           </div>
@@ -60,7 +64,7 @@
         <div v-if="isAuthenticated == true">
           <router-link to="todo">
             <div
-              class="border-solid bg-gray-500 h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center text-4xl"
+              class="border-solid bg-gray-500 h-auto flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-bold text-white flex justify-center items-center text-7xl hover:bg-green-500 dark:hover:bg-green-500 hover:border-transparent | transition-colors duration-500"
             >
               Todo
             </div>
@@ -70,7 +74,7 @@
         <div v-if="isAuthenticated == true">
           <router-link to="/instruction/train">
             <div
-              class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center text-4xl"
+              class="border-solid h-auto bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-bold text-white flex justify-center items-center text-7xl hover:bg-green-500 dark:hover:bg-green-500 hover:border-transparent | transition-colors duration-500"
             >
               Train
             </div>
@@ -81,7 +85,7 @@
         <div v-if="isAuthenticated == true">
           <router-link :to="'report' + ids">
             <div
-              class="border-solid bg-gray-500 h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center text-4xl"
+              class="border-solid bg-gray-500 h-auto flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-bold text-white flex justify-center items-center text-7xl hover:bg-green-500 dark:hover:bg-green-500 hover:border-transparent | transition-colors duration-500"
             >
               Report
             </div>
@@ -90,7 +94,7 @@
 
         <router-link to="/about">
           <div
-            class="border-solid h-16 bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center text-4xl"
+            class="border-solid h-auto bg-gray-500 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-bold text-white flex justify-center items-center text-7xl hover:bg-green-500 dark:hover:bg-green-500 hover:border-transparent | transition-colors duration-500"
           >
             About Us
           </div>
@@ -99,7 +103,7 @@
     </section>
     <section>
       <div
-        class="absolute inset-x-0 bottom-0 flex justify-center items-center text-green-600"
+        class="absolute inset-x-0 bottom-0 flex justify-center items-center text-green-500"
       >
         @Copyright ~ 2021. rax
       </div>
@@ -129,7 +133,7 @@ export default {
     this.guardMyroute();
     let id = window.localStorage.getItem("ids");
     // console.log("in moute" + this.isAuthenticated);
-    axios.get(`http://localhost:3000/user/${id}`).then((res) => {
+    axios.get(`https://deworko-database.herokuapp.com/user/${id}`).then((res) => {
       //   console.log(res);
       let userWork = res.data;
       console.log(userWork)

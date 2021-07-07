@@ -2,11 +2,14 @@
   <div class="bg-home h-screen">
     <section class="ml-10 grid grid-cols-2 gap-2 lg:grid-cols-3">
       <nav>
-        <div
-          class="border-solid h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold flex justify-center items-center"
-        >
-          <router-link to="/" class="text-white">DeWroko</router-link>
-        </div>
+        <router-link to="/" class="text-white">
+          <div
+            class="border-solid h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold flex justify-center items-center
+          hover:bg-green-500 dark:hover:bg-green-500 hover:border-transparent | transition-colors duration-500"
+          >
+            DeWroko
+          </div>
+        </router-link>
       </nav>
     </section>
 
@@ -20,7 +23,7 @@
           class="border-solid h-auto bg-green-500 rounded-md font-extrabold text-green-500 flex justify-center items-center w-auto item-center"
         >
           <div class="p-5">
-            <p class="text-white text-center">Login</p>
+            <p class="text-white text-center text-3xl">Login</p>
             <div action class="flex flex-col">
               <input
                 type="text"
@@ -38,7 +41,7 @@
                   v-bind:disabled="isDisabled"
                   v-on:click="login"
                   value="Login"
-                  class="border-solid rounded-md border-4 border-black-500 border-opacity-100 font-extrabold text-black flex justify-center items-center m-5 p-2"
+                  class="border-solid rounded-md border-4 border-black-500 border-opacity-100 font-extrabold text-black flex justify-center items-center m-5 p-2 cursor-pointer"
                 />
                 <!-- <div
                   class="border-solid bg-gray-500 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center m-5 p-2"
@@ -90,7 +93,7 @@ export default {
     login() {
       axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
       axios
-        .post("http://localhost:3000/login", {
+        .post("https://deworko-database.herokuapp.com/login", {
           email: this.email,
         })
         .then((res) => {

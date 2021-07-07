@@ -82,13 +82,13 @@
           </div>
           <!--footer-->
           <div class="p-3 mt-2 text-center space-x-4 md:block">
-            <router-link to="/learn">
+            <a href="/learn">
               <button
                 class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"
               >
                 No
               </button>
-            </router-link>
+            </a>
             <router-link to="/train">
               <button
                 class="mb-2 md:mb-0 bg-green-500 border border-green-500 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-600"
@@ -108,10 +108,10 @@
         class="flex-1 rounded-md font-extrabold text-white flex justify-center items-center ml-10 mt-10 text-2xl"
         id="moveM"
       >
-        <div class="bg-gray-500 p-10 mr-10 text-2xl rounded-md">
+        <div class="bg-gray-500 p-10 mr-10 text-2xl rounded-md text-5xl">
           Your movement is {{ test }}
         </div>
-        <div class="bg-gray-500 p-10 text-2xl rounded-md">
+        <div class="bg-gray-500 p-10 text-2xl rounded-md text-5xl">
           Your movement is {{ time }}
         </div>
       </div>
@@ -122,7 +122,7 @@
           class="bg-gray-500 rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
         >Train model</div>-->
         <div
-          class="mt-10 bg-gray-500 p-10 text-2xl rounded-md text-white font-extrabold mr-2"
+          class="mt-10 bg-gray-500 p-10 text-4xl rounded-md text-white font-extrabold mr-2"
         >
           How to do {{ test }} :
           <br />
@@ -415,8 +415,12 @@ export default {
           // console.log("in here");
           if (d < 95) {
             p5.stroke(0, 255, 0);
+            p5.textSize(50);
+            p5.text("a", 100, 100);
           } else {
             p5.stroke(255, 0, 0);
+            p5.textSize(50);
+            p5.text("hello", 100, 100);
           }
           p5.ellipse(rightHipX, rightHipY, d);
           // ellipse(rightShoulderX, rightShoulderY, 30);

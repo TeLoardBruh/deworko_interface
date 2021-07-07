@@ -12,19 +12,19 @@
           <div>
             <img src="../assets/vector_1.png" class />
             <div
-              class="bg-gray-500 flex rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
+              class="bg-gray-500 flex rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-5xl"
             >Accept camera access and wait for the webcam to load.</div>
           </div>
           <div>
             <img src="../assets/vector_2.png" />
             <div
-              class="bg-gray-500 flex rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
+              class="bg-gray-500 flex rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-5xl"
             >Accept camera access and wait for the webcam to load.</div>
           </div>
           <div>
             <img src="../assets/vector_3.png" />
             <div
-              class="bg-gray-500 flex rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-2xl"
+              class="bg-gray-500 flex rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-5xl"
             >Accept camera access and wait for the webcam to load.</div>
           </div>
 

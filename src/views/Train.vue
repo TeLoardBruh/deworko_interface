@@ -107,15 +107,15 @@
         class="flex-1 rounded-md font-extrabold text-white flex justify-center items-center ml-10 mt-5 text-2xl"
         id="moveM"
       >
-        <div class="bg-gray-500 p-5 mr-10 text-2xl rounded-md">
+        <div class="bg-gray-500 p-5 mr-10 text-2xl rounded-md text-4xl">
           Your movement is {{ test }} : {{ counterVue }}
         </div>
-        <div class="bg-gray-500 p-5 text-2xl rounded-md">
+        <div class="bg-gray-500 p-5 text-2xl rounded-md text-4xl">
           Your time left 00:{{ time }}
         </div>
       </div>
       <div
-        class="flex-1 rounded-md font-extrabold text-white flex justify-center items-center ml-10 mt-10 text-2xl"
+        class="flex-1 rounded-md font-extrabold text-white flex justify-center items-center ml-10 mt-5 text-2xl"
       >
         <div
           id="btnRest"
@@ -370,7 +370,7 @@ export default {
           let email = localStorage.getItem("authE");
           // }
           axios
-            .post("http://localhost:3000/workout", {
+            .post("https://deworko-database.herokuapp.com/workout", {
               email: email,
               sqaut: workoutArr.sqaut,
               jack: workoutArr.jack,
@@ -494,6 +494,7 @@ export default {
           // console.log("in here");
           if (d < 95) {
             p5.stroke(0, 255, 0);
+            
           } else {
             p5.stroke(255, 0, 0);
           }
@@ -710,7 +711,7 @@ export default {
             p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
           );
           let dl = parseInt(
-            p5.dist(rightKneeX, rightKneeY, leftKneeX, leftKneeY)
+            p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
           );
 
           if (d < 80) {

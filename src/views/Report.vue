@@ -2,11 +2,14 @@
   <div class="bg-home h-screen">
     <section class="ml-10 grid grid-cols-2 gap-2 lg:grid-cols-3">
       <nav>
-        <div
-          class="border-solid h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold flex justify-center items-center"
-        >
-          <router-link to="/" class="text-white">DeWroko</router-link>
-        </div>
+        <router-link to="/" class="text-white">
+          <div
+            class="border-solid h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold flex justify-center items-center
+          hover:bg-green-500 dark:hover:bg-green-500 hover:border-transparent | transition-colors duration-500"
+          >
+            DeWroko
+          </div>
+        </router-link>
       </nav>
     </section>
 
@@ -20,12 +23,12 @@
         >
           <div class="p-5">
             <p
-              class="border-solid bg-green-500 rounded-md font-extrabold flex justify-center items-center w-auto item-center text-white"
+              class="border-solid bg-green-500 rounded-md font-extrabold flex justify-center items-center w-auto item-center text-white text-3xl p-5"
             >
               Report
             </p>
             <div v-if="works.length == 0">
-              <div class="text-white">
+              <div class="text-white text-center">
                 NO DATA
               </div>
             </div>
@@ -121,45 +124,70 @@
           </div>
         </div>
         <div></div>
-        <div class="bg-white">
-          <div
-            class="flex-auto ml-3 justify-evenly py-2 rounded"
-            v-for="item in goals"
-            :key="item.id"
-          >
-            <div class="flex flex-wrap ">
-              <h2 class="flex-auto text-lg font-medium">
-                {{ item.title }} : {{ item.content }}
-              </h2>
+        <div class="">
+          <div class="text-center flex justify-center item-center">
+            <p
+              class="border-solid bg-green-500 rounded-md font-extrabold flex justify-center items-center w-auto item-center text-white p-5 text-3xl"
+            >
+              Goals
+            </p>
+            <router-link to="/todo">
+              <button
+                class="border-solid h-auto p-5 font-extrabold text-2xl rounded-md border-4 border-green-500 border-opacity-100 font-bold flex justify-center items-center text-white ml-5 hover:bg-green-500 dark:hover:bg-green-500 hover:border-transparent | transition-colors duration-500"
+              >
+                Create new goal
+              </button>
+            </router-link>
+          </div>
+          <div v-if="goals.length == 0">
+            <div class="text-white text-center font-extrabold">
+              NO DATA
             </div>
-            <p class="mt-3"></p>
-            <div class="flex py-4  text-sm text-gray-600">
-              <div class="flex-1 inline-flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5 mr-2"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                  ></path>
-                </svg>
-                <p class="">{{ item.createdAt.split("T")[0] }}</p>
-              </div>
+          </div>
+
+          <div v-for="item in goals" :key="item.id">
+            <div
+              class="bg-gray-100 border-red-600 dark:bg-gray-800 bg-opacity-95 border-opacity-60 | p-4 border-solid rounded-3xl border-2 | flex justify-around cursor-pointer | hover:bg-red-400 dark:hover:bg-red-600 hover:border-transparent | transition-colors duration-500 mt-10"
+              v-if="item.done == false"
+            >
               <input
                 type="checkbox"
                 class="form-checkbox h-8 w-8 m-2"
                 v-model="item.done"
                 v-on:click="updateReport(item.id)"
               />
+              <div class="flex flex-col justify-center">
+                <p class="text-gray-900 dark:text-gray-300 font-semibold">
+                  {{ item.title }} : {{ item.content }}
+                </p>
+                <p
+                  class="text-black dark:text-gray-100 text-justify font-semibold"
+                >
+                  {{ item.createdAt.split("T")[0] }}
+                </p>
+              </div>
             </div>
-            <div class="flex p-4 pb-2 border-t border-gray-200 "></div>
-            <div class="flex space-x-3 text-sm font-medium"></div>
+            <div
+              class="bg-gray-100 border-green-600 dark:bg-gray-800 bg-opacity-95 border-opacity-60 | p-4 border-solid rounded-3xl border-2 | flex justify-around cursor-pointer | hover:bg-green-400 dark:hover:bg-green-600 hover:border-transparent | transition-colors duration-500 mt-10"
+              v-else
+            >
+              <input
+                type="checkbox"
+                class="form-checkbox h-8 w-8 m-2"
+                v-model="item.done"
+                v-on:click="updateReport(item.id)"
+              />
+              <div class="flex flex-col justify-center">
+                <p class="text-gray-900 dark:text-gray-300 font-semibold">
+                  {{ item.title }} : {{ item.content }}
+                </p>
+                <p
+                  class="text-black dark:text-gray-100 text-justify font-semibold"
+                >
+                  {{ item.createdAt.split("T")[0] }}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
         <div
@@ -216,24 +244,27 @@ export default {
   },
 
   mounted() {
-    
     let id = window.localStorage.getItem("ids");
-    axios.get(`http://localhost:3000/userPost/${id}`).then((res) => {
-      //   console.log(res);
-      let userWork = res.data;
-      this.works = userWork;
-    });
-    axios.get(`http://localhost:3000/post/${id}`).then((res) => {
-      //   console.log(res);
-      let userWork = res.data;
-      this.goals = userWork;
-    });
+    axios
+      .get(`https://deworko-database.herokuapp.com/userPost/${id}`)
+      .then((res) => {
+        //   console.log(res);
+        let userWork = res.data;
+        this.works = userWork;
+      });
+    axios
+      .get(`https://deworko-database.herokuapp.com/post/${id}`)
+      .then((res) => {
+        //   console.log(res);
+        let userWork = res.data;
+        this.goals = userWork;
+      });
   },
   methods: {
     login() {
       axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
       axios
-        .post("http://localhost:3000/login", {
+        .post("https://deworko-database.herokuapp.com/login", {
           email: this.email,
         })
         .then((res) => {
@@ -246,14 +277,20 @@ export default {
     },
     updateReport(id) {
       // let id = window.localStorage.getItem("ids");
-      let done = !this.toggle;
+      let done;
+      // console.log(this.goals);
+      for (let i = 0; i < this.goals.length; i++) {
+        let dbDone = this.goals[i].done;
+        done = dbDone;
+        // console.log(done);
+      }
       axios
-        .put(`http://localhost:3000/updatereport/${id}`, {
-          done: done,
+        .put(`https://deworko-database.herokuapp.com/updatereport/${id}`, {
+          done: !done,
         })
-        .then((res) => {
-          console.log(res);
-          
+        .then(() => {
+          console.log("suc");
+
           // window.location.href = "/";
         });
     },

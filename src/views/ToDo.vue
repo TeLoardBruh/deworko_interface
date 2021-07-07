@@ -2,11 +2,14 @@
   <div class="bg-home h-screen">
     <section class="ml-10 grid grid-cols-2 gap-2 lg:grid-cols-3">
       <nav>
-        <div
-          class="border-solid h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold flex justify-center items-center"
-        >
-          <router-link to="/" class="text-white">DeWroko</router-link>
-        </div>
+        <router-link to="/" class="text-white">
+          <div
+            class="border-solid h-16 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold flex justify-center items-center
+          hover:bg-green-500 dark:hover:bg-green-500 hover:border-transparent | transition-colors duration-500"
+          >
+            DeWroko
+          </div>
+        </router-link>
       </nav>
     </section>
 
@@ -20,19 +23,19 @@
           class="border-solid h-auto bg-green-500 rounded-md font-extrabold text-green-500 flex justify-center items-center w-auto item-center"
         >
           <div class="p-5">
-            <p class="text-white text-center">ToDo</p>
+            <p class="text-white text-center text-3xl">ToDo</p>
             <div class="flex flex-col">
               <select
                 v-model="selected"
                 class="border border-gray-300 rounded-full text-gray-600 h-10 mt-10 pl-5 pr-10 bg-white hover:border-gray-400 focus:outline-none appearance-none"
               >
                 <option disabled value="">Choose a moves</option>
-                <option value="sqaut">Sqaut</option>
-                <option value="jack">Jumping Jack</option>
-                <option value="single_leg">Single leg stand</option>
-                <option value="high_knees">High knees</option>
-                <option value="jumping_lunge">Lunge</option>
-                <option value="lateral_shuffles">Lateral shuffles</option>
+                <option>Sqaut</option>
+                <option>Jumping Jack</option>
+                <option>Single leg stand</option>
+                <option>High knees</option>
+                <option>Lunge</option>
+                <option>Lateral shuffles</option>
               </select>
 
               <input
@@ -46,16 +49,21 @@
               <div class="grid grid-cols-2">
                 <div></div>
                 <div
-                  class="border-solid bg-gray-500 rounded-md border-4 border-green-500 border-opacity-100 font-extrabold text-green-500 flex justify-center items-center m-5 p-2"
                 >
-                  <button v-on:click="create">Create</button>
+                  <input
+                    type="button"
+                    v-bind:disabled="isDisabled"
+                    v-on:click="create"
+                    value="Create"
+                    class="border-solid rounded-md border-4 border-black-500 border-opacity-100 font-extrabold text-black flex justify-center items-center m-5 p-2 cursor-pointer"
+                  />
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div></div>
-         <div
+        <div
           class="flex-1 rounded-md font-extrabold text-white flex justify-start items-center text-3xl absolute inset-x-0 bottom-0"
         >
           <a href="/">
@@ -103,6 +111,11 @@ export default {
       number: "",
     };
   },
+  computed: {
+    isDisabled() {
+      return this.number.length == 0;
+    },
+  },
   methods: {
     create() {
       let selected = this.selected;
@@ -111,7 +124,7 @@ export default {
       // console.log(selected, number);
       axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
       axios
-        .post("http://localhost:3000/post", {
+        .post("https://deworko-database.herokuapp.com/post", {
           title: selected,
           content: number,
           email: email,
