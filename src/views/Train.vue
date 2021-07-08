@@ -288,7 +288,7 @@ export default {
       let rightShoulderY = 0;
 
       // timer
-      let timer = 10;
+      let timer = 30;
       // eslint-disable-next-line no-unused-vars
       let sec = 0;
       // eslint-disable-next-line no-unused-vars
@@ -297,6 +297,7 @@ export default {
       let d_prev = 0;
       // eslint-disable-next-line no-unused-vars
       let pCount = 0;
+      let c;
       // eslint-disable-next-line no-unused-vars
       let count = 0;
       // eslint-disable-next-line no-unused-vars
@@ -494,14 +495,18 @@ export default {
           // console.log("in here");
           if (d < 95) {
             p5.stroke(0, 255, 0);
+            c = p5.color(51, 255, 94);
           } else {
             p5.stroke(255, 0, 0);
+            c = p5.color(255, 51, 51);
           }
-          p5.ellipse(rightHipX, rightHipY, d);
+
+          p5.fill(c);
+          p5.ellipse(100, 100, 100);
           // ellipse(rightShoulderX, rightShoulderY, 30);
           // text(angleBetween, rightShoulderX, rightShoulderY);
-          p5.textSize(50);
-          p5.text(d, rightHipX, rightHipY);
+          // p5.textSize(50);
+          // p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d < 95 && d_prev >= 100) {
             cSqaut++;
@@ -530,13 +535,14 @@ export default {
           );
           if (d >= 100) {
             p5.stroke(0, 255, 0);
+           c = p5.color(51, 255, 94);
           } else {
             p5.stroke(255, 0, 0);
+            c = p5.color(255, 51, 51);
           }
-          p5.ellipse(rightHipX, rightHipY, d);
 
-          p5.textSize(50);
-          p5.text(d, rightHipX, rightHipY);
+          p5.fill(c);
+          p5.ellipse(100, 100, 100);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d >= 100 && p5.frameCount % 60 == 0) {
             cJack++;
@@ -560,13 +566,14 @@ export default {
           );
           if (d < 20) {
             p5.stroke(0, 255, 0);
+            c = p5.color(51, 255, 94);
           } else {
             p5.stroke(255, 0, 0);
+            c = p5.color(255, 51, 51);
           }
-          p5.ellipse(rightHipX, rightHipY, d);
 
-          p5.textSize(50);
-          p5.text(d, rightHipX, rightHipY);
+          p5.fill(c);
+          p5.ellipse(100, 100, 100);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           // eslint-disable-next-line no-undef
           if (d < 20 && p5.frameCount % 60 == 0) {
@@ -598,13 +605,14 @@ export default {
           );
           if (d < 20) {
             p5.stroke(0, 255, 0);
+           c = p5.color(51, 255, 94);
           } else {
             p5.stroke(255, 0, 0);
+            c = p5.color(255, 51, 51);
           }
-          p5.ellipse(rightHipX, rightHipY, d);
 
-          p5.textSize(50);
-          p5.text(d, rightHipX, rightHipY);
+          p5.fill(c);
+          p5.ellipse(100, 100, 100);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           // eslint-disable-next-line no-undef
           if (d < 20 && p5.frameCount % 60 == 0) {
@@ -631,13 +639,14 @@ export default {
           );
           if (d < 80) {
             p5.stroke(0, 255, 0);
+           c = p5.color(51, 255, 94);
           } else {
             p5.stroke(255, 0, 0);
+            c = p5.color(255, 51, 51);
           }
-          p5.ellipse(rightHipX, rightHipY, d);
 
-          p5.textSize(50);
-          p5.text(d, rightHipX, rightHipY);
+          p5.fill(c);
+          p5.ellipse(100, 100, 100);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d < 80 && d_prev >= 100) {
             cHigh_knees++;
@@ -658,13 +667,14 @@ export default {
 
           if (d < 100) {
             p5.stroke(0, 255, 0);
+           c = p5.color(51, 255, 94);
           } else {
             p5.stroke(255, 0, 0);
+            c = p5.color(255, 51, 51);
           }
-          p5.ellipse(rightHipX, rightHipY, d);
 
-          p5.textSize(50);
-          p5.text(d, rightHipX, rightHipY);
+          p5.fill(c);
+          p5.ellipse(100, 100, 100);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d < 100 && p5.frameCount % 60 == 0) {
             cJumping_lunge_r++;
@@ -687,13 +697,14 @@ export default {
 
           if (d < 100) {
             p5.stroke(0, 255, 0);
+           c = p5.color(51, 255, 94);
           } else {
             p5.stroke(255, 0, 0);
+            c = p5.color(255, 51, 51);
           }
-          p5.ellipse(rightHipX, rightHipY, d);
 
-          p5.textSize(50);
-          p5.text(d, rightHipX, rightHipY);
+          p5.fill(c);
+          p5.ellipse(100, 100, 100);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d < 100 && p5.frameCount % 60 == 0) {
             cJumping_lunge_l++;
@@ -715,23 +726,24 @@ export default {
 
           if (d < 80) {
             p5.stroke(0, 255, 0);
+            c = p5.color(51, 255, 94);
           } else {
             p5.stroke(255, 0, 0);
+            c = p5.color(255, 51, 51);
           }
-          p5.ellipse(rightHipX, rightHipY, d);
 
-          p5.textSize(50);
-          p5.text(d, rightHipX, rightHipY);
+          p5.fill(c);
+          p5.ellipse(100, 100, 100);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d < 150 && dl < 100 && p5.frameCount % 60 == 0) {
             cLateral_shuffles++;
             self.counterVue = cLateral_shuffles;
             console.log(cLateral_shuffles);
           }
-          p5.text(dl, rightUnderKneeX, rightUnderKneeY);
+          // p5.text(dl, rightUnderKneeX, rightUnderKneeY);
           returnPoseCount(cLateral_shuffles);
           // if the counter reaches at 5, display "You did it" otherwise "keep going!"
-          p5.textSize(50);
+          // p5.textSize(50);
           p5.fill(255);
           d_prev = d;
         } else if (pCount >= poseArray.length) {
