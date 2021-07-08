@@ -383,12 +383,10 @@ export default {
             })
             .then((res) => {
               console.log("this in res " + res);
-               window.location.href = "/";
+              window.location.href = "/";
             });
           // window.location.href = "/";
         }
-
-        
 
         video.hide();
         poseNet = ml5.poseNet(video, modelLoaded);
@@ -474,11 +472,13 @@ export default {
         // let v1 = createVector(rightHipX, rightHipY);
         // let angleBetween = v0.angleBetween(v1);
         // console.log(d);
-
-        if (p5.frameCount % 60 == 0) {
-          timer--;
-          self.time = timer;
+        if (pose) {
+          if (p5.frameCount % 60 == 0) {
+            timer--;
+            self.time = timer;
+          }
         }
+
         // if (timer <= 0) {
         //   workoutArr[poseArray[pCount]] = count;
         //   console.log(workoutArr);
@@ -494,7 +494,6 @@ export default {
           // console.log("in here");
           if (d < 95) {
             p5.stroke(0, 255, 0);
-            
           } else {
             p5.stroke(255, 0, 0);
           }

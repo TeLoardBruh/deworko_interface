@@ -3,29 +3,38 @@
     <div class="col-span-1 bg-green-500 h-screen">
       <div
         class="flex h-screen justify-center items-center text-white font-extrabold text-4xl"
-      >Instructions</div>
+      >
+        Instructions
+      </div>
     </div>
 
     <div class="col-span-2">
       <div class="flex h-screen justify-center items-center">
-        <div class="grid grid-cols-3">
+        <div class="grid grid-cols-3 flex justify-center items-center">
           <div>
             <img src="../assets/vector_1.png" class />
             <div
-              class="bg-gray-500 flex rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-5xl"
-            >Accept camera access and wait for the webcam to load.</div>
+              class="bg-gray-500 flex rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-4xl"
+            >
+              Allow camera access and wait for the webcam to load.
+            </div>
           </div>
           <div>
             <img src="../assets/vector_2.png" />
             <div
-              class="bg-gray-500 flex rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-5xl"
-            >Accept camera access and wait for the webcam to load.</div>
+              class="bg-gray-500 flex rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-4xl"
+            >
+              Make your moves in the same way as the stick figure.
+            </div>
           </div>
           <div>
             <img src="../assets/vector_3.png" />
             <div
-              class="bg-gray-500 flex rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-5xl"
-            >Accept camera access and wait for the webcam to load.</div>
+              class="bg-gray-500 flex rounded-md font-extrabold text-white flex justify-center items-center m-10 p-10 text-4xl"
+            >
+              Your real-time feedback will disply as circle in the screen.
+              Enjoy!
+            </div>
           </div>
 
           <div
@@ -53,8 +62,10 @@
           <div
             class="flex rounded-md font-extrabold text-green-500 flex justify-start items-center text-3xl"
           >
-            <router-link :to="'/'+$route.params.page">Let’s get start</router-link>
-            <router-link :to="'/'+$route.params.page">
+            <router-link :to="'/' + $route.params.page"
+              >Let’s get start</router-link
+            >
+            <router-link :to="'/' + $route.params.page">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-16 w-16"
@@ -76,7 +87,9 @@
     </div>
     <div
       class="absolute inset-x-0 bottom-0 flex justify-center items-center text-green-600"
-    >@Copyright ~ 2021. By rax</div>
+    >
+      @Copyright ~ 2021. By rax
+    </div>
   </div>
 </template>
 
@@ -84,6 +97,4 @@
 export default {};
 </script>
 
-
-<style scoped>
-</style>
+<style scoped></style>
