@@ -663,7 +663,7 @@ export default {
 
           d_prev = d;
         } else if (poseArray[pCount] == "jumping_lunge_r") {
-          let d = parseInt(p5.dist(leftHipX, leftHipY, leftKneeX, leftKneeY));
+          let d = parseInt(p5.dist(rightUnderKneeX, rightUnderKneeY, leftKneeX, leftKneeY));
 
           if (d < 100) {
             p5.stroke(0, 255, 0);
@@ -692,7 +692,7 @@ export default {
           d_prev = d;
         } else if (poseArray[pCount] == "jumping_lunge_l") {
           let d = parseInt(
-            p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
+            p5.dist(leftUnderKneeX, leftUnderKneeY, rightKneeX, rightKneeY)
           );
 
           if (d < 100) {
@@ -721,7 +721,7 @@ export default {
             p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
           );
           let dl = parseInt(
-            p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
+            p5.dist(rightKneeX, rightKneeY, leftKneeX, leftKneeY)
           );
 
           if (d < 80) {

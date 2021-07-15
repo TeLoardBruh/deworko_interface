@@ -305,7 +305,7 @@ export default {
       // eslint-disable-next-line no-unused-vars
       let d_prev = 0;
       // eslint-disable-next-line no-unused-vars
-      let pCount = 0;
+      let pCount = 7;
       // eslint-disable-next-line no-unused-vars
       let count = 0;
       // eslint-disable-next-line no-unused-vars
@@ -666,9 +666,9 @@ export default {
           // console.log(counter);
           // console.log(d);
         } else if (poseArray[pCount] == "jumping_lunge_r") {
-          let d = parseInt(p5.dist(leftHipX, leftHipY, leftKneeX, leftKneeY));
+          let d = parseInt(p5.dist(rightUnderKneeX, rightUnderKneeY, leftKneeX, leftKneeY));
 
-          if (d < 100) {
+          if (d < 95) {
             p5.stroke(0, 255, 0);
             c = p5.color(51, 255, 94);
           } else {
@@ -682,7 +682,7 @@ export default {
           // p5.textSize(50);
           // p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
-          if (d < 100 && p5.frameCount % 60 == 0) {
+          if (d < 95 && p5.frameCount % 60 == 0) {
             count++;
 
             timer--;
@@ -712,10 +712,10 @@ export default {
         } else if (poseArray[pCount] == "jumping_lunge_l") {
           // let d = parseInt(dist(leftHipX, leftHipY, leftKneeX, leftKneeY));
           let d = parseInt(
-            p5.dist(rightHipX, rightHipY, rightKneeX, rightKneeY)
+            p5.dist(leftUnderKneeX, leftUnderKneeY, rightKneeX, rightKneeY)
           );
 
-          if (d < 100) {
+          if (d < 95) {
             p5.stroke(0, 255, 0);
             c = p5.color(51, 255, 94);
           } else {
@@ -726,14 +726,14 @@ export default {
           p5.fill(c);
           p5.ellipse(100, 100, 100);
 
-          // p5.textSize(50);
-          // p5.text(d, rightHipX, rightHipY);
+          p5.textSize(50);
+          p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
-          if (d < 100 && p5.frameCount % 60 == 0) {
+          if (d < 95 && p5.frameCount % 60 == 0) {
             count++;
             timer--;
             self.time = timer;
-            console.log("after 5 : " + count);
+            console.log(count);
 
             // console.log("d_prev" + d_prev);
 
@@ -781,7 +781,7 @@ export default {
           // p5.text(d, rightHipX, rightHipY);
           // if a squat is detected (when someone sits down, and up), increase the counter by 1
           if (d < 150 && dl < 100 && p5.frameCount % 60 == 0) {
-            // count++;
+            count++;
             timer--;
             self.time = timer;
             console.log(count);
