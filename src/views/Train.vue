@@ -370,17 +370,18 @@ export default {
           //   console.log(prop, val);
           let email = localStorage.getItem("authE");
           // }
+          axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
           axios
             .post("https://deworko-database.herokuapp.com/workout", {
               email: email,
-              sqaut: workoutArr.sqaut,
-              jack: workoutArr.jack,
-              single_leg_stand_r: workoutArr.single_leg_stand_r,
-              single_leg_stand_l: workoutArr.single_leg_stand_l,
-              high_knees: workoutArr.high_knees,
-              jumping_lunge_r: workoutArr.jumping_lunge_r,
-              jumping_lunge_l: workoutArr.jumping_lunge_l,
-              lateral_shuffles: workoutArr.lateral_shuffles,
+              sqaut: cSqaut,
+              jack: cJack,
+              single_leg_stand_r: cSingle_leg_stand_r,
+              single_leg_stand_l: cSingle_leg_stand_l,
+              high_knees: cHigh_knees,
+              jumping_lunge_r: cJumping_lunge_r,
+              jumping_lunge_l: cJumping_lunge_l,
+              lateral_shuffles: cLateral_shuffles,
             })
             .then((res) => {
               console.log("this in res " + res);

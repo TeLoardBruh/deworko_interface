@@ -305,7 +305,7 @@ export default {
       // eslint-disable-next-line no-unused-vars
       let d_prev = 0;
       // eslint-disable-next-line no-unused-vars
-      let pCount = 7;
+      let pCount = 0;
       // eslint-disable-next-line no-unused-vars
       let count = 0;
       // eslint-disable-next-line no-unused-vars
