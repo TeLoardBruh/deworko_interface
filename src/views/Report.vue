@@ -246,14 +246,14 @@ export default {
   mounted() {
     let id = window.localStorage.getItem("ids");
     axios
-      .get(`https://deworko-database.herokuapp.com/userPost/${id}`)
+      .get(`https://deworko-db.herokuapp.com/userPost/${id}`)
       .then((res) => {
         //   console.log(res);
         let userWork = res.data;
         this.works = userWork;
       });
     axios
-      .get(`https://deworko-database.herokuapp.com/post/${id}`)
+      .get(`https://deworko-db.herokuapp.com/post/${id}`)
       .then((res) => {
         //   console.log(res);
         let userWork = res.data;
@@ -264,7 +264,7 @@ export default {
     login() {
       axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
       axios
-        .post("https://deworko-database.herokuapp.com/login", {
+        .post("https://deworko-db.herokuapp.com/login", {
           email: this.email,
         })
         .then((res) => {
@@ -285,7 +285,7 @@ export default {
         // console.log(done);
       }
       axios
-        .put(`https://deworko-database.herokuapp.com/updatereport/${id}`, {
+        .put(`https://deworko-db.herokuapp.com/updatereport/${id}`, {
           done: !done,
         })
         .then(() => {

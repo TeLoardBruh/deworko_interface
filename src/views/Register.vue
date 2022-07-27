@@ -96,7 +96,7 @@ export default {
       axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
       axios
-        .post("https://deworko-database.herokuapp.com/signup", {
+        .post("https://deworko-db.herokuapp.com/signup", {
           name: this.userName,
           email: this.email,
         })

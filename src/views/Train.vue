@@ -368,25 +368,25 @@ export default {
           // let entries = Object.entries(workoutArr);
           // for (const [prop, val] of entries) {
           //   console.log(prop, val);
-          let email = localStorage.getItem("authE");
+          // let email = localStorage.getItem("authE");
           // }
-          axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
-          axios
-            .post("https://deworko-database.herokuapp.com/workout", {
-              email: email,
-              sqaut: cSqaut,
-              jack: cJack,
-              single_leg_stand_r: cSingle_leg_stand_r,
-              single_leg_stand_l: cSingle_leg_stand_l,
-              high_knees: cHigh_knees,
-              jumping_lunge_r: cJumping_lunge_r,
-              jumping_lunge_l: cJumping_lunge_l,
-              lateral_shuffles: cLateral_shuffles,
-            })
-            .then((res) => {
-              console.log("this in res " + res);
+          // axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
+          // axios
+          //   .post("https://deworko-db.herokuapp.com/workout", {
+          //     email: email,
+          //     sqaut: cSqaut,
+          //     jack: cJack,
+          //     single_leg_stand_r: cSingle_leg_stand_r,
+          //     single_leg_stand_l: cSingle_leg_stand_l,
+          //     high_knees: cHigh_knees,
+          //     jumping_lunge_r: cJumping_lunge_r,
+          //     jumping_lunge_l: cJumping_lunge_l,
+          //     lateral_shuffles: cLateral_shuffles,
+          //   })
+          //   .then((res) => {
+          //     console.log("this in res " + res);
+          //   });
               window.location.href = "/";
-            });
           // window.location.href = "/";
         }
 
@@ -463,7 +463,7 @@ export default {
           workoutArr[poseArray[pCount]] = p;
           // console.log(workoutArr);
           self.counterVue = 0;
-          timer = 10;
+          timer = 30;
           // count = 0;
           pCount++;
         }

@@ -5,9 +5,9 @@
         class="col-start-1 col-end-4 border-solid h-auto flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-bold flex justify-center items-center
         hover:bg-green-500 dark:hover:bg-green-500 hover:border-transparent | transition-colors duration-500"
       >
-        <router-link to="/" class="text-white">DeWroko</router-link>
+        <router-link to="/" class="text-white  p-5">DeWroko</router-link>
       </div>
-      <div v-if="isAuthenticated">
+      <!-- <div v-if="isAuthenticated">
         <div class="ml-5 mr-5">
           <button
             v-on:click="logout"
@@ -17,24 +17,24 @@
             Logout
           </button>
         </div>
-      </div>
-      <div v-else class="flex">
+      </div> -->
+      <div class="flex">
         <!-- <div class=""> -->
         <div class="ml-5 mr-5">
-          <router-link
+          <!-- <router-link
             to="/login"
             class="border-solid h-auto p-5 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-bold flex justify-center items-center text-white
             hover:bg-green-500 dark:hover:bg-green-500 hover:border-transparent | transition-colors duration-500"
             >Login</router-link
-          >
+          > -->
         </div>
         <div class="ml-5 mr-5">
-          <router-link
+          <!-- <router-link
             to="/Register"
             class="border-solid h-auto p-5 flex-1 rounded-md border-4 border-green-500 border-opacity-100 font-bold flex justify-center items-center text-white 
             hover:bg-green-500 dark:hover:bg-green-500 hover:border-transparent | transition-colors duration-500"
             >Register</router-link
-          >
+          > -->
         </div>
         <!-- </div> -->
       </div>
@@ -119,7 +119,7 @@ export default {
   name: "Home",
   data() {
     return {
-      isAuthenticated: false,
+      isAuthenticated: true,
       ids: "",
     };
   },
@@ -133,7 +133,7 @@ export default {
     this.guardMyroute();
     let id = window.localStorage.getItem("ids");
     // console.log("in moute" + this.isAuthenticated);
-    axios.get(`https://deworko-database.herokuapp.com/user/${id}`).then((res) => {
+    axios.get(`https://deworko-db.herokuapp.com/user/${id}`).then((res) => {
       //   console.log(res);
       let userWork = res.data;
       console.log(userWork)
@@ -150,10 +150,10 @@ export default {
       this.ids = ids;
       // console.log(this.ids)
       if (localStorage.getItem("authE")) {
-        this.isAuthenticated = true;
+        // this.isAuthenticated = true;
         // console.log("in true case" + this.isAuthenticated);
       } else {
-        this.isAuthenticated = false;
+        // this.isAuthenticated = false;
         // console.log("in false case" + this.isAuthenticated);
       }
     },

@@ -124,7 +124,7 @@ export default {
       // console.log(selected, number);
       axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
       axios
-        .post("https://deworko-database.herokuapp.com/post", {
+        .post("https://deworko-db.herokuapp.com/post", {
           title: selected,
           content: number,
           email: email,

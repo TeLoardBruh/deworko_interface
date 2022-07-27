@@ -54,7 +54,7 @@ const routes = [{
   },
   {
     path: '/train',
-    beforeEnter : guardMyroute,
+    // beforeEnter : guardMyroute,
     name: 'Train',
     component: Train
   },
@@ -70,13 +70,13 @@ const routes = [{
   },
   {
     path: '/todo',
-    beforeEnter : guardMyroute,
+    // beforeEnter : guardMyroute,
     name: 'ToDo',
     component: ToDo
   },
   {
     path: '/report:id',
-    beforeEnter : guardMyroute,
+    // beforeEnter : guardMyroute,
     name: 'Report',
     component: Report
   },
